@@ -331,6 +331,11 @@ baseDataSetRelease=[
     ]
 
 # note: INPUT commands to be added once GEN-SIM w/ 13TeV+PostLS1Geo will be available 
+steps['QCD_Pt_30_80_BCtoE_8TeVINPUT']={'INPUT':InputInfo(dataSet='/RelValQCD_Pt_30_80_BCtoE_8TeV/CMSSW_6_2_0_pre8-PRE_ST62_V8-v3/GEN-SIM' ,location='STD')}
+steps['QCD_Pt_80_170_BCtoE_8TeVINPUT']={'INPUT':InputInfo(dataSet='/RelValQCD_Pt_80_170_BCtoE_8TeV/CMSSW_6_2_0_pre8-PRE_ST62_V8-v3/GEN-SIM',location='STD')}
+steps['PYTHIA6_Tauola_TTbar_TuneZ2star_8TeVINPUT']={'INPUT':InputInfo(dataSet='/RelValPYTHIA6_Tauola_TTbar_TuneZ2star_8TeV/CMSSW_6_2_0_pre8-PRE_ST62_V8-v3/GEN-SIM',location='STD')}
+
+
 steps['MinBiasINPUT']={'INPUT':InputInfo(dataSet='/RelValMinBias/%s/GEN-SIM'%(baseDataSetRelease[0],),location='STD')}
 steps['QCD_Pt_3000_3500INPUT']={'INPUT':InputInfo(dataSet='/RelValQCD_Pt_3000_3500/%s/GEN-SIM'%(baseDataSetRelease[0],),location='STD')}
 steps['QCD_Pt_600_800INPUT']={'INPUT':InputInfo(dataSet='/RelValQCD_Pt_600_800/%s/GEN-SIM'%(baseDataSetRelease[0],),location='STD')}
@@ -894,7 +899,10 @@ PU={'-n':10,'--pileup':'default','--pileup_input':'dbs:/RelValMinBias/%s/GEN-SIM
 PU25={'-n':10,'--pileup':'AVE_10_BX_25ns_m8','--pileup_input':'dbs:/RelValMinBias_13/%s/GEN-SIM'%(baseDataSetRelease[7],)}
 PU50={'-n':10,'--pileup':'AVE_20_BX_50ns_m8','--pileup_input':'dbs:/RelValMinBias_13/%s/GEN-SIM'%(baseDataSetRelease[7],)}
 PUFS={'--pileup':'default'}
-PUFS2={'--pileup':'mix_2012_Startup_inTimeOnly'}
+PUFS2={'--pileup':'mix_2012_Startup_inTimeOnly','--pileup_input':'dbs:/RelValMinBias_13/%s/GEN-SIM'%(baseDataSetRelease[7],)}
+
+PUEG={'-n':10,'--pileup':'2012_Startup_50ns_PoissonOOTPU','--pileup_input':'dbs:/RelValMinBias/CMSSW_6_2_0_pre8-PRE_ST62_V8-v1/GEN-SIM'}
+
 steps['TTbarFSPU']=merge([PUFS,Kby(100,500),steps['TTbarFS']] )
 steps['TTbarFSPU2']=merge([PUFS2,Kby(100,500),steps['TTbarFS']])
 ##########################
@@ -906,6 +914,13 @@ step2Defaults = { '-s'            : 'DIGI:pdigi_valid,L1,DIGI2RAW,HLT:@relval,RA
                   '--datatier'    : 'GEN-SIM-DIGI-RAW-HLTDEBUG',
                   '--eventcontent': 'FEVTDEBUGHLT',
                   '--conditions'  : 'auto:startup',
+                  }
+# step2 egamma 
+step2egammaDefaults = { '-s'            : 'DIGI:pdigi_valid,L1,DIGI2RAW,HLT:@relval,RAW2DIGI,L1Reco',
+                  '--datatier'    : 'GEN-SIM-DIGI-RAW-HLTDEBUG',
+                  '--eventcontent': 'FEVTDEBUGHLT',
+                  '--conditions'  : 'auto:startup'
+		  #'--customise_commands' : '"process.gedGsfElectronsTmp.PreSelectMVA = -2"'
                   }
 #for 2015
 step2Upg2015Defaults = {'-s'     :'DIGI:pdigi_valid,L1,DIGI2RAW,HLT:@relval,RAW2DIGI,L1Reco',
@@ -940,7 +955,7 @@ steps['RESIMDIGI']=merge([{'-s':'reGEN,reSIM,DIGI,L1,DIGI2RAW,HLT:@relval,RAW2DI
 
     
 steps['DIGIHI']=merge([{'--conditions':'auto:starthi_HIon', '-s':'DIGI:pdigi_valid,L1,DIGI2RAW,HLT:HIon,RAW2DIGI,L1Reco', '--inputCommands':'"keep *","drop *_simEcalPreshowerDigis_*_*"', '-n':10}, hiDefaults, step2Defaults])
-
+steps['DIGIPUEG']=merge([PUEG,step2egammaDefaults])
 #wmsplit['DIGIHI']=5
 
 #for pix phase1
@@ -1070,6 +1085,19 @@ step3Up2015Hal = {'-s'            :'RAW2DIGI,L1Reco,RECO,EI,VALIDATION,DQM',
                  '--customise'    :'SLHCUpgradeSimulations/Configuration/postLS1Customs.customisePostLS1',
                  '--geometry'     :'Extended2015'
                  }
+
+step3egammaDefaults = {
+                  '-s'            : 'RAW2DIGI,L1Reco,RECO,EI,VALIDATION,DQM',
+                  '--conditions'  : 'auto:startup',
+                  '--no_exec'     : '',
+                  '--datatier'    : 'RECODEBUG,DQM',
+                  '--eventcontent': 'RECODEBUG,DQM',
+		  '--customise_commands':'"process.gedGsfElectronsTmp.PreSelectMVA = -2"'
+                  }
+
+
+steps['RECOPUEG']=merge([PUEG,step3egammaDefaults])
+
                              
 steps['RECOUP15']=merge([step3Up2015Defaults]) # todo: remove UP from label
 steps['RECOUP15PROD1']=merge([{ '-s' : 'RAW2DIGI,L1Reco,RECO,EI', '--datatier' : 'GEN-SIM-RECO,AODSIM', '--eventcontent' : 'RECOSIM,AODSIM'},step3Up2015Defaults])

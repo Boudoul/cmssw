@@ -4,7 +4,7 @@ from threading import Thread
 from Configuration.PyReleaseValidation import WorkFlow
 import os,time
 import shutil
-from subprocess import Popen 
+from subprocess import Popen
 
 class WorkFlowRunner(Thread):
     def __init__(self, wf, noRun=False,dryRun=False,cafVeto=True):
@@ -26,7 +26,7 @@ class WorkFlowRunner(Thread):
 
         msg = "\n# in: " +os.getcwd()
         if self.dryRun: msg += " dryRun for '"
-        else:      msg += " going to execute "
+        else: msg += " going to execute "
         msg += cmd.replace(';','\n')
         print msg
 
@@ -51,7 +51,7 @@ class WorkFlowRunner(Thread):
             os.makedirs(self.wfDir)
         elif not self.dryRun: # clean up to allow re-running in the same overall devel area, then recreate the dir to make sure it exists
             print "cleaning up ", self.wfDir, ' in ', os.getcwd()
-            shutil.rmtree(self.wfDir) 
+            shutil.rmtree(self.wfDir)
             os.makedirs(self.wfDir)
 
         preamble = 'cd '+self.wfDir+'; '
@@ -65,7 +65,7 @@ class WorkFlowRunner(Thread):
 
         ##needs to set
         #self.report
-        self.npass  = []
+        self.npass = []
         self.nfail = []
         self.stat = []
         self.retStep = []
@@ -94,30 +94,31 @@ class WorkFlowRunner(Thread):
                     self.stat.append('NOTRUN')
                     aborted=True
                     continue
-                #create lumiRange file first so if dbs fails we get its error code
+                #create lumiRange file first so if das fails we get its error code
                 cmd2 = com.lumiRanges()
                 if cmd2:
                     cmd2 =cmd+cmd2+closeCmd(istep,'lumiRanges')
                     lumiRangeFile='step%d_lumiRanges.log'%(istep,)
                     retStep = self.doCmd(cmd2)
-                cmd+=com.dbs()
-                cmd+=closeCmd(istep,'dbsquery')
+                cmd+=com.das()
+                cmd+=closeCmd(istep,'dasquery')
                 retStep = self.doCmd(cmd)
-                #don't use the file list executed, but use the dbs command of cmsDriver for next step
-                inFile='filelist:step%d_dbsquery.log'%(istep,)
+                #don't use the file list executed, but use the das command of cmsDriver for next step
+                inFile='filelist:step%d_dasquery.log'%(istep,)
                 print "---"
             else:
                 #chaining IO , which should be done in WF object already and not using stepX.root but <stepName>.root
                 cmd += com
                 if self.noRun:
                     cmd +=' --no_exec'
-                if inFile: #in case previous step used DBS query (either filelist of dbs:)
+                if inFile: #in case previous step used DAS query (either filelist of das:)
                     cmd += ' --filein '+inFile
                     inFile=None
-                if lumiRangeFile: #DBS query can also restrict lumi range
+                if lumiRangeFile: #DAS query can also restrict lumi range
                     cmd += ' --lumiToProcess '+lumiRangeFile
                     lumiRangeFile=None
-                if 'HARVESTING' in cmd and not '134' in str(self.wf.numId) and not '--filein' in cmd:
+                # 134 is an existing workflow where harvesting has to operate on AlcaReco and NOT on DQM; hard-coded..
+                if 'HARVESTING' in cmd and not 134==self.wf.numId and not '--filein' in cmd:
                     cmd+=' --filein file:step%d_inDQM.root --fileout file:step%d.root '%(istep-1,istep)
                 else:
                     if istep!=1 and not '--filein' in cmd:
@@ -127,7 +128,7 @@ class WorkFlowRunner(Thread):
                     
                                 
 
-                cmd+=closeCmd(istep,self.wf.nameId)            
+                cmd+=closeCmd(istep,self.wf.nameId)
                 retStep = self.doCmd(cmd)
             
             self.retStep.append(retStep)
@@ -158,7 +159,7 @@ class WorkFlowRunner(Thread):
             logStat+='Step%d-%s '%(i,s)
         self.report='%s_%s %s - time %s; exit: '%(self.wf.numId,self.wf.nameId,logStat,tottime)+' '.join(map(str,self.retStep))+'\n'
 
-        return 
+        return
 
 
 

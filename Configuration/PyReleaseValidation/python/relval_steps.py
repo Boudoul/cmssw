@@ -56,10 +56,12 @@ class InputInfo(object):
         query_by = "block" if self.ib_block else "dataset"
         query_source = "{0}#{1}".format(self.dataSet, self.ib_block) if self.ib_block else self.dataSet
         if len(self.run) is not 0:
-            command = ";".join(["das_client.py --host='https://dastest.cern.ch' --limit=0 --query 'file {0}={1} run={2}'".format(query_by, query_source, query_run) for query_run in self.run])
+            command = ";".join(["das_client.py --limit=0 --query 'file {0}={1} run={2}'".format(query_by, query_source, query_run) for query_run in self.run])
+#            command = ";".join(["das_client.py --host='https://dastest.cern.ch' --limit=0 --query 'file {0}={1} run={2}'".format(query_by, query_source, query_run) for query_run in self.run])
             command = "({0})".format(command)
         else:
-            command = "das_client.py --host='https://dastest.cern.ch' --limit=0 --query 'file {0}={1} site=T2_CH_CERN'".format(query_by, query_source)
+            command = "das_client.py  --limit=0 --query 'file {0}={1} site=T2_CH_CERN'".format(query_by, query_source)
+            #command = "das_client.py --host='https://dastest.cern.ch' --limit=0 --query 'file {0}={1} site=T2_CH_CERN'".format(query_by, query_source)
        
         # Run filter on DAS output 
         if self.ib_blacklist:
@@ -296,6 +298,11 @@ steps['QCD_FlatPt_15_3000INPUT']={'INPUT':InputInfo(dataSet='/RelValQCD_FlatPt_1
 steps['QCD_FlatPt_15_3000HSINPUT']={'INPUT':InputInfo(dataSet='/RelValQCD_FlatPt_15_3000/CMSSW_5_2_2-PU_START52_V4_special_120326-v1/GEN-SIM',location='STD')}
 steps['QCD_FlatPt_15_3000HS__DIGIPU1INPUT']={'INPUT':InputInfo(dataSet='/RelValQCD_FlatPt_15_3000/CMSSW_5_2_2-PU_START52_V4_special_120326-v1/GEN-SIM-DIGI-RAW-HLTDEBUG',location='STD')}
 steps['TTbar__DIGIPU1INPUT']={'INPUT':InputInfo(dataSet='/RelValTTbar/CMSSW_5_2_2-PU_START52_V4_special_120326-v1/GEN-SIM-DIGI-RAW-HLTDEBUG',location='STD')}
+
+
+
+
+
 
 ## high stat step1
 K700by280={'--relval': '70000,280'}
@@ -895,6 +902,53 @@ steps['TTbar_UPG2017PU20_14_STAR']=gen2017design('TTbar_Tauola_14TeV_cfi',Kby(9,
 steps['TTbar_UPG2017PU20_14_300']=gen2017300('TTbar_Tauola_14TeV_cfi',Kby(9,100))
 steps['TTbar_UPG2017PU20_14_500']=gen2017500('TTbar_Tauola_14TeV_cfi',Kby(9,100))
 steps['TTbar_UPG2017PU20_14_1000']=gen20171000('TTbar_Tauola_14TeV_cfi',Kby(9,100))
+
+
+step1Up2017_START_HLLHC_Defaults = {'-s' : 'GEN,SIM',
+                             '-n' : 10,
+                             '--conditions' : 'STAR17_61_V1A::All', 
+                             '--beamspot' : 'HLLHC',
+                             '--magField' : '38T_PostLS1',
+                             '--datatier' : 'GEN-SIM',
+                             '--eventcontent': 'FEVTDEBUG',
+                             '--geometry' : 'Extended2017',
+                             '--customise' : 'SLHCUpgradeSimulations/Configuration/combinedCustoms.cust_2017'
+                             }
+def gen2017starthllhc(fragment,howMuch):
+    global step1Up2017_START_HLLHC_Defaults
+    return merge([{'cfg':fragment},howMuch,step1Up2017_START_HLLHC_Defaults])
+
+
+
+
+
+steps['TTbar_UPG2017PU140HLLHC_14_STAR']=gen2017starthllhc('TTbar_Tauola_14TeV_cfi',Kby(10,50))
+steps['TTbar_UPG2017PU140HLLHC_14_STARINPUT']={'INPUT':InputInfo(dataSet='/RelValTTbar_14TeV/CMSSW_6_1_2_SLHC8_patch3-STAR17_61_V1A_GaussBS_SpecialTRK-v3/GEN-SIM',location='STD')}
+
+
+steps['MinBias_TuneZ2star_UPG2017HLLHC_14_STAR']=gen2017starthllhc('MinBias_TuneZ2star_14TeV_pythia6_cff',Kby(100,100))
+
+step1Up2017_START_FLAT_Defaults = {'-s' : 'GEN,SIM',
+                             '-n' : 10,
+                             '--conditions' : 'STAR17_61_V1A::All', 
+                             '--beamspot' : 'Flat',
+                             '--magField' : '38T_PostLS1',
+                             '--datatier' : 'GEN-SIM',
+                             '--eventcontent': 'FEVTDEBUG',
+                             '--geometry' : 'Extended2017',
+                             '--customise' : 'SLHCUpgradeSimulations/Configuration/combinedCustoms.cust_2017,SLHCUpgradeSimulations/Configuration/combinedCustoms.bsStudyStep1'
+                             }
+def gen2017startFLAT(fragment,howMuch):
+    global step1Up2017_START_FLAT_Defaults
+    return merge([{'cfg':fragment},howMuch,step1Up2017_START_FLAT_Defaults])
+
+
+
+
+
+steps['TTbar_UPG2017PU140FLAT_14_STAR']=gen2017startFLAT('TTbar_Tauola_14TeV_cfi',Kby(10,50))
+steps['MinBias_TuneZ2star_UPG2017FLAT_14_STAR']=gen2017startFLAT('MinBias_TuneZ2star_14TeV_pythia6_cff',Kby(100,100))
+
 
 ## 2019
 
@@ -1548,7 +1602,7 @@ step2Upg2017puDefaults = {'-s':'DIGI,L1,DIGI2RAW',
 		 '--pileup': 'AVE_20_BX_25ns',
                  '--customise': 'SLHCUpgradeSimulations/Configuration/combinedCustoms.cust_2017',
                  '--geometry' : 'Extended2017',
-		 '--pileup_input':'dbs:/RelValMinBias_TuneZ2star_14TeV/CMSSW_6_1_2_SLHC6-DES17_61_V5_UPG2017-v1/GEN-SIM'
+		 '--pileup_input':'dbs:/RelValMinBias_TuneZ2star_14TeV/CMSSW_6_1_2_SLHC6-DES17_61_V5_UPG2017-v3/GEN-SIM'
                   }
 steps['DIGIPUUP17']=merge([step2Upg2017puDefaults])
 
@@ -1603,7 +1657,7 @@ step2Upg2017pu_DESIGN_Defaults = {'-s':'DIGI,L1,DIGI2RAW',
                  '--magField' : '38T_PostLS1',
                  '--customise': 'SLHCUpgradeSimulations/Configuration/combinedCustoms.cust_2017',
                  '--geometry' : 'Extended2017',
-		 '--pileup_input':'dbs:/RelValMinBias_TuneZ2star_14TeV/CMSSW_6_1_2_SLHC6-DES17_61_V5_UPG2017-v1/GEN-SIM'
+		 '--pileup_input':'dbs:/RelValMinBias_TuneZ2star_14TeV/CMSSW_6_1_2_SLHC6-DES17_61_V5_UPG2017-v3/GEN-SIM'
                   }
 steps['DIGIPUUP17DES']=merge([step2Upg2017pu_DESIGN_Defaults])
 
@@ -1632,10 +1686,49 @@ step2Upg2017pu_START_Defaults = {'-s':'DIGI,L1,DIGI2RAW',
                  '--magField' : '38T_PostLS1',
                  '--customise': 'SLHCUpgradeSimulations/Configuration/combinedCustoms.cust_2017,SLHCUpgradeSimulations/Configuration/combinedCustoms.fixEcalConditions_150',
                  '--geometry' : 'Extended2017',
-		 '--pileup_input':'dbs:/RelValMinBias_TuneZ2star_14TeV/CMSSW_6_1_2_SLHC6-DES17_61_V5_UPG2017-v1/GEN-SIM'
+		 '--pileup_input':'dbs:/RelValMinBias_TuneZ2star_14TeV/CMSSW_6_1_2_SLHC6-DES17_61_V5_UPG2017-v3/GEN-SIM'
                   }
 steps['DIGIPUUP17STAR']=merge([step2Upg2017pu_START_Defaults])
 
+
+step2Upg2017pu140_START_Defaults = {'-s':'DIGI,L1,DIGI2RAW',
+                 '--conditions':'STAR17_61_V1A::All', 
+                 '--datatier':'GEN-SIM-DIGI-RAW',
+                 '-n':'10',
+                 '--eventcontent':'FEVTDEBUGHLT',
+		 '--pileup': 'AVE_140_BX_25ns_trk',
+                 '--magField' : '38T_PostLS1',
+                 '--customise': 'SLHCUpgradeSimulations/Configuration/combinedCustoms.cust_2017,SLHCUpgradeSimulations/Configuration/combinedCustoms.fixEcalConditions_150',
+                 '--geometry' : 'Extended2017',
+		 '--pileup_input':'dbs:/RelValMinBias_TuneZ2star_14TeV/CMSSW_6_1_2_SLHC8_patch2-STAR17_61_V1A_GaussBS_SpecialTRK-v1/GEN-SIM'
+                  }
+steps['DIGIPUUP17STAR140']=merge([step2Upg2017pu140_START_Defaults])
+
+step2Upg2017pu140_STARTNODL_Defaults = {'-s':'DIGI,L1,DIGI2RAW',
+                 '--conditions':'STAR17_61_V1A::All', 
+                 '--datatier':'GEN-SIM-DIGI-RAW',
+                 '-n':'10',
+                 '--eventcontent':'FEVTDEBUGHLT',
+		 '--pileup': 'AVE_140_BX_25ns_trk',
+                 '--magField' : '38T_PostLS1',
+                 '--customise': 'SLHCUpgradeSimulations/Configuration/combinedCustoms.cust_2017,SLHCUpgradeSimulations/Configuration/combinedCustoms.fixEcalConditions_150,SLHCUpgradeSimulations/Configuration/combinedCustoms.customise_noPixelDataloss',
+                 '--geometry' : 'Extended2017',
+		 '--pileup_input':'dbs:/RelValMinBias_TuneZ2star_14TeV/CMSSW_6_1_2_SLHC8_patch2-STAR17_61_V1A_GaussBS_SpecialTRK-v1/GEN-SIM'
+                  }
+steps['DIGIPUUP17STAR140NODL']=merge([step2Upg2017pu140_STARTNODL_Defaults])
+
+step2Upg2017pu140_START_FLAT_Defaults = {'-s':'DIGI,L1,DIGI2RAW',
+                 '--conditions':'STAR17_61_V1A::All', 
+                 '--datatier':'GEN-SIM-DIGI-RAW',
+                 '-n':'10',
+                 '--eventcontent':'FEVTDEBUGHLT',
+		 '--pileup': 'AVE_140_BX_25ns_trk',
+                 '--magField' : '38T_PostLS1',
+                 '--customise': 'SLHCUpgradeSimulations/Configuration/combinedCustoms.cust_2017,SLHCUpgradeSimulations/Configuration/combinedCustoms.fixEcalConditions_150',
+                 '--geometry' : 'Extended2017',
+		 '--pileup_input':'dbs:/RelValMinBias_TuneZ2star_14TeV/CMSSW_6_1_2_SLHC8_patch3-STAR17_61_V1A_FlatBS_SpecialTRK-v3/GEN-SIM'
+                  }
+steps['DIGIPUUP17STAR140_FLAT']=merge([step2Upg2017pu140_START_FLAT_Defaults])
 
 
 ####DIGI AGING VALIDATION - 300fb-1
@@ -1660,7 +1753,7 @@ step2Upg2017pu_300_Defaults = {'-s':'DIGI,L1,DIGI2RAW',
 		 '--pileup': 'AVE_20_BX_25ns',
                  '--customise': 'SLHCUpgradeSimulations/Configuration/combinedCustoms.cust_2017,SLHCUpgradeSimulations/Configuration/aging.customise_aging_300,SLHCUpgradeSimulations/Configuration/combinedCustoms.fixEcalConditions_300',
                  '--geometry' : 'Extended2017',
-		 '--pileup_input':'dbs:/RelValMinBias_TuneZ2star_14TeV/CMSSW_6_1_2_SLHC6-DES17_61_V5_UPG2017-v1/GEN-SIM'
+		 '--pileup_input':'dbs:/RelValMinBias_TuneZ2star_14TeV/CMSSW_6_1_2_SLHC6-DES17_61_V5_UPG2017-v3/GEN-SIM'
                   }
 steps['DIGIPUUP17300']=merge([step2Upg2017pu_300_Defaults])
 
@@ -1701,7 +1794,7 @@ step2Upg2017pu_500_Defaults = {'-s':'DIGI,L1,DIGI2RAW',
 		 '--pileup': 'AVE_20_BX_25ns',
                  '--customise': 'SLHCUpgradeSimulations/Configuration/combinedCustoms.cust_2017,SLHCUpgradeSimulations/Configuration/aging.customise_aging_500,SLHCUpgradeSimulations/Configuration/combinedCustoms.fixEcalConditions_500',
                  '--geometry' : 'Extended2017',
-		 '--pileup_input':'dbs:/RelValMinBias_TuneZ2star_14TeV/CMSSW_6_1_2_SLHC6-DES17_61_V5_UPG2017-v1/GEN-SIM'
+		 '--pileup_input':'dbs:/RelValMinBias_TuneZ2star_14TeV/CMSSW_6_1_2_SLHC6-DES17_61_V5_UPG2017-v3/GEN-SIM'
                   }
 steps['DIGIPUUP17500']=merge([step2Upg2017pu_500_Defaults])
 
@@ -1729,7 +1822,7 @@ step2Upg2017pu_1000_Defaults = {'-s':'DIGI,L1,DIGI2RAW',
                  '--magField' : '38T_PostLS1',
                  '--customise': 'SLHCUpgradeSimulations/Configuration/combinedCustoms.cust_2017,SLHCUpgradeSimulations/Configuration/aging.customise_aging_1000,SLHCUpgradeSimulations/Configuration/combinedCustoms.fixEcalConditions_1000',
                  '--geometry' : 'Extended2017',
-		 '--pileup_input':'dbs:/RelValMinBias_TuneZ2star_14TeV/CMSSW_6_1_2_SLHC6-DES17_61_V5_UPG2017-v1/GEN-SIM'
+		 '--pileup_input':'dbs:/RelValMinBias_TuneZ2star_14TeV/CMSSW_6_1_2_SLHC6-DES17_61_V5_UPG2017-v3/GEN-SIM'
                   }
 steps['DIGIPUUP171000']=merge([step2Upg2017pu_1000_Defaults])
 
@@ -2221,7 +2314,7 @@ step3Up2017pu_DESIGN_Defaults = {'-s':'RAW2DIGI,L1Reco,RECO,VALIDATION,DQM',
                  '--magField' : '38T_PostLS1',
                  '--customise' : 'SLHCUpgradeSimulations/Configuration/combinedCustoms.cust_2017',
                  '--geometry' : 'Extended2017',
-		 '--pileup_input':'dbs:/RelValMinBias_TuneZ2star_14TeV/CMSSW_6_1_2_SLHC6-DES17_61_V5_UPG2017-v1/GEN-SIM'
+		 '--pileup_input':'dbs:/RelValMinBias_TuneZ2star_14TeV/CMSSW_6_1_2_SLHC6-DES17_61_V5_UPG2017-v3/GEN-SIM'
                  }
                              
 steps['RECOPUUP17DES']=merge([step3Up2017pu_DESIGN_Defaults])
@@ -2251,10 +2344,38 @@ step3Up2017pu_START_Defaults = {'-s':'RAW2DIGI,L1Reco,RECO,VALIDATION,DQM',
                  '--magField' : '38T_PostLS1',
                  '--customise' : 'SLHCUpgradeSimulations/Configuration/combinedCustoms.cust_2017,SLHCUpgradeSimulations/Configuration/combinedCustoms.fixEcalConditions_150',
                  '--geometry' : 'Extended2017',
-		 '--pileup_input':'dbs:/RelValMinBias_TuneZ2star_14TeV/CMSSW_6_1_2_SLHC6-DES17_61_V5_UPG2017-v1/GEN-SIM'
+		 '--pileup_input':'dbs:/RelValMinBias_TuneZ2star_14TeV/CMSSW_6_1_2_SLHC6-DES17_61_V5_UPG2017-v3/GEN-SIM'
                  }
                              
 steps['RECOPUUP17STAR']=merge([step3Up2017pu_START_Defaults])
+
+step3Up2017pu140_START_Defaults = {'-s':'RAW2DIGI,L1Reco,RECO,DQM',
+                 '--conditions':'STAR17_61_V1A::All', 
+                 '--datatier':'GEN-SIM-RECO,DQM',
+                 '-n':'10',
+                 '--eventcontent':'FEVTDEBUGHLT,DQM',
+		 '--pileup': 'AVE_140_BX_25ns_trk',
+                 '--magField' : '38T_PostLS1',
+                 '--customise' : 'SLHCUpgradeSimulations/Configuration/combinedCustoms.cust_2017,SLHCUpgradeSimulations/Configuration/combinedCustoms.fixEcalConditions_150',
+                 '--geometry' : 'Extended2017',
+		 '--pileup_input':'dbs:/RelValMinBias_TuneZ2star_14TeV/CMSSW_6_1_2_SLHC8_patch2-STAR17_61_V1A_GaussBS_SpecialTRK-v1/GEN-SIM'
+                 }
+                             
+steps['RECOPUUP17STAR140']=merge([step3Up2017pu140_START_Defaults])
+
+step3Up2017pu140_START_FLAT_Defaults = {'-s':'RAW2DIGI,L1Reco,RECO,DQM',
+                 '--conditions':'STAR17_61_V1A::All', 
+                 '--datatier':'GEN-SIM-RECO,DQM',
+                 '-n':'10',
+                 '--eventcontent':'FEVTDEBUGHLT,DQM',
+		 '--pileup': 'AVE_140_BX_25ns_trk',
+                 '--magField' : '38T_PostLS1',
+                 '--customise' : 'SLHCUpgradeSimulations/Configuration/combinedCustoms.cust_2017,SLHCUpgradeSimulations/Configuration/combinedCustoms.fixEcalConditions_150,SLHCUpgradeSimulations/Configuration/combinedCustoms.bsStudyStep2',
+                 '--geometry' : 'Extended2017',
+		 '--pileup_input':'dbs:/RelValMinBias_TuneZ2star_14TeV/CMSSW_6_1_2_SLHC8_patch3-STAR17_61_V1A_FlatBS_SpecialTRK-v3/GEN-SIM'
+                 }
+                             
+steps['RECOPUUP17STAR140_FLAT']=merge([step3Up2017pu140_START_FLAT_Defaults])
 
 
 ####RECO AGING VALIDATION - 300fb-1 
@@ -2282,7 +2403,7 @@ step3Up2017pu_300_Defaults = {'-s':'RAW2DIGI,L1Reco,RECO,VALIDATION,DQM',
                  '--magField' : '38T_PostLS1',
                  '--customise' : 'SLHCUpgradeSimulations/Configuration/combinedCustoms.cust_2017,SLHCUpgradeSimulations/Configuration/combinedCustoms.fixEcalConditions_300,SLHCUpgradeSimulations/Configuration/aging.customise_aging_300',
                  '--geometry' : 'Extended2017',
-		 '--pileup_input':'dbs:/RelValMinBias_TuneZ2star_14TeV/CMSSW_6_1_2_SLHC6-DES17_61_V5_UPG2017-v1/GEN-SIM'
+		 '--pileup_input':'dbs:/RelValMinBias_TuneZ2star_14TeV/CMSSW_6_1_2_SLHC6-DES17_61_V5_UPG2017-v3/GEN-SIM'
                  }
                              
 steps['RECOPUUP17300']=merge([step3Up2017pu_300_Defaults])
@@ -2328,7 +2449,7 @@ step3Up2017pu_500_Defaults = {'-s':'RAW2DIGI,L1Reco,RECO,VALIDATION,DQM',
 		 '--pileup': 'AVE_20_BX_25ns',
                  '--customise' : 'SLHCUpgradeSimulations/Configuration/combinedCustoms.cust_2017,SLHCUpgradeSimulations/Configuration/combinedCustoms.fixEcalConditions_500,SLHCUpgradeSimulations/Configuration/aging.customise_aging_500',
                  '--geometry' : 'Extended2017',
-		 '--pileup_input':'dbs:/RelValMinBias_TuneZ2star_14TeV/CMSSW_6_1_2_SLHC6-DES17_61_V5_UPG2017-v1/GEN-SIM'
+		 '--pileup_input':'dbs:/RelValMinBias_TuneZ2star_14TeV/CMSSW_6_1_2_SLHC6-DES17_61_V5_UPG2017-v3/GEN-SIM'
                  }
                              
 steps['RECOPUUP17500']=merge([step3Up2017pu_500_Defaults])
@@ -2360,7 +2481,7 @@ step3Up2017pu_1000_Defaults = {'-s':'RAW2DIGI,L1Reco,RECO,VALIDATION,DQM',
 		 '--pileup': 'AVE_20_BX_25ns',
                  '--customise' : 'SLHCUpgradeSimulations/Configuration/combinedCustoms.cust_2017,SLHCUpgradeSimulations/Configuration/combinedCustoms.fixEcalConditions_1000,SLHCUpgradeSimulations/Configuration/aging.customise_aging_1000',
                  '--geometry' : 'Extended2017',
-		 '--pileup_input':'dbs:/RelValMinBias_TuneZ2star_14TeV/CMSSW_6_1_2_SLHC6-DES17_61_V5_UPG2017-v1/GEN-SIM'
+		 '--pileup_input':'dbs:/RelValMinBias_TuneZ2star_14TeV/CMSSW_6_1_2_SLHC6-DES17_61_V5_UPG2017-v3/GEN-SIM'
                  }
                              
 steps['RECOPUUP171000']=merge([step3Up2017pu_1000_Defaults])

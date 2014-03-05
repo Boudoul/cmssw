@@ -37,7 +37,7 @@ for i,key in enumerate(upgradeKeys):
        stepList=[]
        for step in upgradeScenToRun[key]:
            if step in upgradePileupSteps:
-               step=upgradePileupSteps[step]
+               step=upgradePileupStepsDict[step]
            if 'Sim' in step:
                stepList.append(k+'_'+step)
            else:

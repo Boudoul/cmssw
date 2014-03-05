@@ -1104,7 +1104,7 @@ upgradeKeys=['2017',
              'Extended2023TTI',
              'Extended2023Muon',
              'Extended2023CFCal',
-             'Extended2023CFCal4Eta',
+             'Extended2023CFCal4Eta'
              ]
 upgradeGeoms={ '2017' : 'Extended2017',
                '2019' : 'Extended2019',
@@ -1123,7 +1123,7 @@ upgradeGeoms={ '2017' : 'Extended2017',
                'Extended2023TTI' : 'Extended2023TTI,Extended2023TTIReco',
                'Extended2023Muon' : 'Extended2023Muon,Extended2023MuonReco',
                'Extended2023CFCal' : 'Extended2023CFCal,Extended2023CFCalReco',
-               'Extended2023CFCal4Eta' : 'Extended2023CFCal4Eta,Extended2023CFCal4EtaReco',
+               'Extended2023CFCal4Eta' : 'Extended2023CFCal4Eta,Extended2023CFCal4EtaReco'
                }
 upgradeGTs={ '2017' : 'auto:upgrade2017',
              '2019' : 'auto:upgrade2019',
@@ -1176,7 +1176,7 @@ upgradeCustoms={ '2017' : 'SLHCUpgradeSimulations/Configuration/combinedCustoms.
 
 upgradeSteps=['GenSimFull','DigiFull','RecoFull','HARVESTFull','DigiTrkTrigFull','FastSim','HARVESTFast']
 
-upgradePileupSteps=['GenSimFull','DigiFullPileup','RecoFullPileup','HARVESTFull','DigiTrkTrigFull','FastSim','HARVESTFast'] ##fastim and trktrig to be pileupiser
+upgradePileupSteps=['DigiFullPileup','RecoFullPileup'] ##fastim and trktrig to be pileupiser
 
 upgradeScenToRun={ '2017':['GenSimFull','DigiFull','RecoFull','HARVESTFull'],
                    '2019':['GenSimFull','DigiFull','RecoFull','HARVESTFull'],
@@ -1202,10 +1202,14 @@ upgradeStepDict={}
 for step in upgradeSteps:
     upgradeStepDict[step]={}
 
-upgradePileupStepDict={}
 for step in upgradePileupSteps:
-    upgradePileupStepDict[step]={}
+    upgradeStepDict[step]={}
 
+
+upgradePileupStepsDict={ 'DigiFull' : 'DigiFullPileup',
+                     'RecoFull' : 'RecoFullPileup'
+		     }
+ 
 # just make all combinations - yes, some will be nonsense.. but then these are not used unless
 # specified above
 for k in upgradeKeys:
@@ -1439,9 +1443,9 @@ for step in upgradePileupSteps:
             howMuch=howMuches[frag]
             for key in upgradeKeys:
                 k=frag[:-4]+'_'+key+'_'+step
-                steps[k]=merge([ {'cfg':frag},howMuch,upgradePileupStepDict[step][key]])
+                steps[k]=merge([ {'cfg':frag},howMuch,upgradeStepDict[step][key]])
    else:
         for key in upgradeKeys:
             k=step+'_'+key
-            steps[k]=merge([upgradePileupStepDict[step][key]])
+            steps[k]=merge([upgradeStepDict[step][key]])
             

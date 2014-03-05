@@ -28,3 +28,19 @@ for i,key in enumerate(upgradeKeys):
                 stepList.append(step+'_'+key)
         workflows[numWF] = [ upgradeDatasetFromFragment[frag], stepList]
         numWF+=1
+
+numWFStart=numWFStart+numWFSkip*len(upgradeKeys)
+for i,key in enumerate(upgradeKeys):
+   numWF=numWFStart+i*numWFSkip
+   for frag in upgradeFragments:
+       k=frag[:-4]+'_'+key
+       stepList=[]
+       for step in upgradeScenToRun[key]:
+           if step in upgradePileupSteps:
+               step=upgradePileupSteps[step]
+           if 'Sim' in step:
+               stepList.append(k+'_'+step)
+           else:
+               stepList.append(step+'_'+key)
+       workflows[numWF] = [ upgradeDatasetFromFragment[frag], stepList]
+       numWF+=1

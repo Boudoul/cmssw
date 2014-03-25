@@ -1085,8 +1085,27 @@ steps['COPYPASTE']={'-s':'NONE',
 
 
 
-# you will need separate scenarios HERE for full and fast 
-upgradeKeys=['2017','2019','BE5D','2017Fast','BE5DFast','BE5DForwardFast','2019WithGEM','BE5DPixel10D','2017Aging','2019Aging','Extended2023','Extended2023HGCalMuon','Extended2023SHCal','Extended2023SHCal4Eta','Extended2023TTI','Extended2023Muon']
+# You will need separate scenarios HERE for full and fast. DON'T CHANGE THE ORDER, only
+# append new keys. Otherwise the numbering for the runTheMatrix tests will change.
+upgradeKeys=['2017',
+             '2019',
+             'BE5D',
+             '2017Fast',
+             'BE5DFast',
+             'BE5DForwardFast',
+             '2019WithGEM',
+             'BE5DPixel10D',
+             '2017Aging',
+             '2019Aging',
+             'Extended2023',
+             'Extended2023HGCalMuon',
+             'Extended2023SHCal',
+             'Extended2023SHCal4Eta',
+             'Extended2023TTI',
+             'Extended2023Muon',
+             'Extended2023CFCal',
+             'Extended2023CFCal4Eta'
+             ]
 upgradeGeoms={ '2017' : 'Extended2017',
                '2019' : 'Extended2019',
                '2019WithGEM' : 'Extended2019',
@@ -1102,7 +1121,9 @@ upgradeGeoms={ '2017' : 'Extended2017',
                'Extended2023SHCal' : 'Extended2023SHCal,Extended2023SHCalReco',
                'Extended2023SHCal4Eta' : 'Extended2023SHCal4Eta,Extended2023SHCalReco',
                'Extended2023TTI' : 'Extended2023TTI,Extended2023TTIReco',
-               'Extended2023Muon' : 'Extended2023Muon,Extended2023MuonReco'
+               'Extended2023Muon' : 'Extended2023Muon,Extended2023MuonReco',
+               'Extended2023CFCal' : 'Extended2023CFCal,Extended2023CFCalReco',
+               'Extended2023CFCal4Eta' : 'Extended2023CFCal4Eta,Extended2023CFCal4EtaReco'
                }
 upgradeGTs={ '2017' : 'auto:upgrade2017',
              '2019' : 'auto:upgrade2019',
@@ -1119,7 +1140,9 @@ upgradeGTs={ '2017' : 'auto:upgrade2017',
              'Extended2023SHCal' : 'auto:upgradePLS3',
              'Extended2023SHCal4Eta' : 'auto:upgradePLS3',
              'Extended2023TTI' : 'auto:upgradePLS3',
-             'Extended2023Muon' : 'auto:upgradePLS3'
+             'Extended2023Muon' : 'auto:upgradePLS3',
+             'Extended2023CFCal' : 'auto:upgradePLS3',
+             'Extended2023CFCal4Eta' : 'auto:upgradePLS3'
              }
 upgradeCustoms={ '2017' : 'SLHCUpgradeSimulations/Configuration/combinedCustoms.cust_2017',
                  '2019' : 'SLHCUpgradeSimulations/Configuration/combinedCustoms.cust_2019',
@@ -1136,7 +1159,9 @@ upgradeCustoms={ '2017' : 'SLHCUpgradeSimulations/Configuration/combinedCustoms.
                  'Extended2023SHCal' : 'SLHCUpgradeSimulations/Configuration/combinedCustoms.cust_2023',
                  'Extended2023SHCal4Eta' : 'SLHCUpgradeSimulations/Configuration/combinedCustoms.cust_2023',
                  'Extended2023TTI' : 'SLHCUpgradeSimulations/Configuration/combinedCustoms_TTI.cust_phase2_BE5D',
-                 'Extended2023Muon' : 'SLHCUpgradeSimulations/Configuration/combinedCustoms.cust_2023Muon'
+                 'Extended2023Muon' : 'SLHCUpgradeSimulations/Configuration/combinedCustoms.cust_2023Muon',
+                 'Extended2023CFCal' : 'SLHCUpgradeSimulations/Configuration/combinedCustoms.cust_2023',
+                 'Extended2023CFCal4Eta' : 'SLHCUpgradeSimulations/Configuration/combinedCustoms.cust_2023'
                  }
 ### remember that you need to add a new step for phase 2 to include the track trigger
 ### remember that you need to add fastsim
@@ -1149,30 +1174,42 @@ upgradeCustoms={ '2017' : 'SLHCUpgradeSimulations/Configuration/combinedCustoms.
 # step6 is fastsim
 # step7 is fastsim harvesting
 
-upgradeSteps=['GenSimFull','DigiFull','RecoFull','HarvFull','DigiTrkTrigFull','FastSim','HarvFast']
+upgradeSteps=['GenSimFull','DigiFull','RecoFull','HARVESTFull','DigiTrkTrigFull','FastSim','HARVESTFast']
 
-upgradeScenToRun={ '2017':['GenSimFull','DigiFull','RecoFull','HarvFull'],
-                   '2019':['GenSimFull','DigiFull','RecoFull','HarvFull'],
-                   '2019WithGEM':['GenSimFull','DigiFull','RecoFull','HarvFull'],
-                   '2017Aging':['GenSimFull','DigiFull','RecoFull','HarvFull'],
-                   '2019Aging':['GenSimFull','DigiFull','RecoFull','HarvFull'],
-                   'BE5D':['GenSimFull','DigiTrkTrigFull','RecoFull','HarvFull'],
-                   'BE5DPixel10D':['GenSimFull','DigiFull','RecoFull','HarvFull'],
-                   '2017Fast':['FastSim','HarvFast'],
-                   'BE5DFast':['FastSim','HarvFast'],
-                   'BE5DForwardFast':['FastSim','HarvFast'],
-                   'Extended2023':['GenSimFull','DigiFull','RecoFull','HarvFull'],
-                   'Extended2023HGCalMuon':['GenSimFull','DigiFull','RecoFull','HarvFull'],
-                   'Extended2023SHCal':['GenSimFull','DigiFull','RecoFull','HarvFull'],
-                   'Extended2023SHCal4Eta':['GenSimFull','DigiFull','RecoFull','HarvFull'],
-                   'Extended2023TTI':['GenSimFull','DigiTrkTrigFull','RecoFull','HarvFull'],
-                   'Extended2023Muon':['GenSimFull','DigiFull','RecoFull','HarvFull']
+upgradePileupSteps=['DigiFullPileup','RecoFullPileup'] ##fastim and trktrig to be pileupiser
+
+upgradeScenToRun={ '2017':['GenSimFull','DigiFull','RecoFull','HARVESTFull'],
+                   '2019':['GenSimFull','DigiFull','RecoFull','HARVESTFull'],
+                   '2019WithGEM':['GenSimFull','DigiFull','RecoFull','HARVESTFull'],
+                   '2017Aging':['GenSimFull','DigiFull','RecoFull','HARVESTFull'],
+                   '2019Aging':['GenSimFull','DigiFull','RecoFull','HARVESTFull'],
+                   'BE5D':['GenSimFull','DigiTrkTrigFull','RecoFull','HARVESTFull'],
+                   'BE5DPixel10D':['GenSimFull','DigiFull','RecoFull','HARVESTFull'],
+                   '2017Fast':['FastSim','HARVESTFast'],
+                   'BE5DFast':['FastSim','HARVESTFast'],
+                   'BE5DForwardFast':['FastSim','HARVESTFast'],
+                   'Extended2023':['GenSimFull','DigiFull','RecoFull','HARVESTFull'],
+                   'Extended2023HGCalMuon':['GenSimFull','DigiFull','RecoFull','HARVESTFull'],
+                   'Extended2023SHCal':['GenSimFull','DigiFull','RecoFull','HARVESTFull'],
+                   'Extended2023SHCal4Eta':['GenSimFull','DigiFull','RecoFull','HARVESTFull'],
+                   'Extended2023TTI':['GenSimFull','DigiTrkTrigFull','RecoFull','HARVESTFull'],
+                   'Extended2023Muon':['GenSimFull','DigiFull','RecoFull','HARVESTFull'],
+                   'Extended2023CFCal':['GenSimFull','DigiFull','RecoFull','HARVESTFull'],
+                   'Extended2023CFCal4Eta':['GenSimFull','DigiFull','RecoFull','HARVESTFull']
                    }
 
 upgradeStepDict={}
 for step in upgradeSteps:
     upgradeStepDict[step]={}
 
+for step in upgradePileupSteps:
+    upgradeStepDict[step]={}
+
+
+upgradePileupStepsDict={ 'DigiFull' : 'DigiFullPileup',
+                     'RecoFull' : 'RecoFullPileup'
+		     }
+ 
 # just make all combinations - yes, some will be nonsense.. but then these are not used unless
 # specified above
 for k in upgradeKeys:
@@ -1197,6 +1234,12 @@ for k in upgradeKeys:
                                       }
     if upgradeCustoms[k]!=None : upgradeStepDict['DigiFull'][k]['--customise']=upgradeCustoms[k]
 
+    upgradeStepDict['DigiFullPileup'][k] = upgradeStepDict['DigiFull'][k]
+    upgradeStepDict['DigiFullPileup'][k]['--pileup']='AVE_140_BX_25ns'
+    upgradeStepDict['DigiFullPileup'][k]['--pileup_input']='das:/RelValMinBias_TuneZ2star_14TeV/CMSSW_6_2_0_SLHC8-DES23_62_V1_UPG2023-v1/GEN-SIM'
+    
+    
+
     upgradeStepDict['DigiTrkTrigFull'][k] = {'-s':'DIGI:pdigi_valid,L1,L1TrackTrigger,DIGI2RAW',
                                              '--conditions':upgradeGTs[k],
                                              '--datatier':'GEN-SIM-DIGI-RAW',
@@ -1217,14 +1260,28 @@ for k in upgradeKeys:
                                       }
     if upgradeCustoms[k]!=None : upgradeStepDict['RecoFull'][k]['--customise']=upgradeCustoms[k]
     
-    upgradeStepDict['HarvFull'][k]={'-s':'HARVESTING:validationHarvesting+dqmHarvesting',
+    upgradeStepDict['RecoFullPileup'][k] = {'-s':'RAW2DIGI,L1Reco,RECO,VALIDATION:@liteTracking,DQM',
+                                      '--conditions':upgradeGTs[k],
+                                      '--datatier':'GEN-SIM-RECO,DQM',
+                                      '-n':'10',
+                                      '--eventcontent':'FEVTDEBUGHLT,DQM',
+                                      '--magField' : '38T_PostLS1',
+                                      '--geometry' : upgradeGeoms[k]
+                                      }
+    if upgradeCustoms[k]!=None : upgradeStepDict['RecoFullPileup'][k]['--customise']=upgradeCustoms[k]
+    upgradeStepDict['RecoFullPileup'][k]['--pileup']='AVE_140_BX_25ns'
+    upgradeStepDict['RecoFullPileup'][k]['--pileup_input']='das:/RelValMinBias_TuneZ2star_14TeV/CMSSW_6_2_0_SLHC8-DES23_62_V1_UPG2023-v1/GEN-SIM'
+    
+    
+    
+    upgradeStepDict['HARVESTFull'][k]={'-s':'HARVESTING:validationHarvesting+dqmHarvesting',
                                     '--conditions':upgradeGTs[k],
                                     '--mc':'',
                                     '--magField' : '38T_PostLS1',
                                     '--geometry' : upgradeGeoms[k],
                                     '--scenario' : 'pp'
                                     }
-    if upgradeCustoms[k]!=None : upgradeStepDict['HarvFull'][k]['--customise']=upgradeCustoms[k]
+    if upgradeCustoms[k]!=None : upgradeStepDict['HARVESTFull'][k]['--customise']=upgradeCustoms[k]
 
     upgradeStepDict['FastSim'][k]={'-s':'GEN,SIM,RECO,VALIDATION',
                                    '--eventcontent':'FEVTDEBUGHLT,DQM',
@@ -1235,14 +1292,14 @@ for k in upgradeKeys:
                                    '--relval':'27000,3000'}
     if upgradeCustoms[k]!=None : upgradeStepDict['FastSim'][k]['--customise']=upgradeCustoms[k]
 
-    upgradeStepDict['HarvFast'][k]={'-s':'HARVESTING:validationHarvestingFS',
+    upgradeStepDict['HARVESTFast'][k]={'-s':'HARVESTING:validationHarvestingFS',
                                     '--conditions':upgradeGTs[k],
                                     '--mc':'',
                                     '--magField' : '38T_PostLS1',
                                     '--geometry' : upgradeGeoms[k],
                                     '--scenario' : 'pp'
                                     }
-    if upgradeCustoms[k]!=None : upgradeStepDict['HarvFast'][k]['--customise']=upgradeCustoms[k]
+    if upgradeCustoms[k]!=None : upgradeStepDict['HARVESTFast'][k]['--customise']=upgradeCustoms[k]
 
 
 upgradeFragments=['FourMuPt_1_200_cfi','SingleElectronPt10_cfi',
@@ -1367,6 +1424,19 @@ upgradeDatasetFromFragment={'FourMuPt_1_200_cfi': 'FourMuPt1_200',
 #just do everything...
 
 for step in upgradeSteps:
+    # we need to do this for each fragment
+   if 'Sim' in step:
+        for frag in upgradeFragments:
+            howMuch=howMuches[frag]
+            for key in upgradeKeys:
+                k=frag[:-4]+'_'+key+'_'+step
+                steps[k]=merge([ {'cfg':frag},howMuch,upgradeStepDict[step][key]])
+   else:
+        for key in upgradeKeys:
+            k=step+'_'+key
+            steps[k]=merge([upgradeStepDict[step][key]])
+            
+for step in upgradePileupSteps:
     # we need to do this for each fragment
    if 'Sim' in step:
         for frag in upgradeFragments:

@@ -1213,7 +1213,7 @@ upgradeScenToRun={ '2017':['GenSimFull','DigiFull','RecoFull','HARVESTFull'],
                    'BE5DFast':['FastSim','HARVESTFast'],
                    'BE5DForwardFast':['FastSim','HARVESTFast'],
                    'Extended2023':['GenSimFull','DigiFull','RecoFull','HARVESTFull'],
-                   'Extended2023HGCalMuon':['GenSimFull'],##no need to go beyond GENSIM
+                   'Extended2023HGCalMuon':['GenSimFull','DigiFull','RecoFull'],##harvesting failing
                    'Extended2023SHCal':['GenSimFull','DigiFull','RecoFull','HARVESTFull'],
                    'Extended2023SHCal4Eta':['GenSimFull','DigiFull','RecoFull','HARVESTFull'],
                    'Extended2023TTI':['GenSimHLBeamSpotFull','DigiTrkTrigFull'], ##no need to go beyond local reco

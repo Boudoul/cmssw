@@ -1236,7 +1236,7 @@ upgradeScenToRun={ '2017':['GenSimFull','DigiFull','RecoFull','HARVESTFull'],
                    'Extended2023SHCalNoTaper4Eta':['GenSimFull','DigiFull','RecoFull','HARVESTFull'],
                    'Extended2023HGCal':['GenSimFull','DigiFull','RecoFull','HARVESTFull'],
                    'Extended2023HGCalMuon4Eta':['GenSimFull','DigiFull','RecoFull','HARVESTFull'],
-                   'Extended2023HGCalV4' : ['GenSimFull','DigiFull','RecoFull','HARVESTFull']
+                   'Extended2023HGCalV4' : ['GenSimFull','DigiFull','RecoFull']##harvesting failing
                    }
 
 upgradeStepDict={}

@@ -46,7 +46,67 @@ def customise_RawToDigi(process):
 def customise_Digi(process):
     process.mix.digitizers.pixel.MissCalibrate = False
     process.mix.digitizers.pixel.LorentzAngle_DB = False
-    process.mix.digitizers.pixel.killModules = False
+    process.mix.digitizers.pixel.killModules = True
+    DeadModules = cms.VPSet(
+    cms.PSet(Dead_detID = cms.int32(352871428), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(352875524), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(352879620), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(352883716), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(352887812), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(352891908), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(352896004), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(352900100), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(352904196), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(352908292), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(352912388), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(352973828), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(352977924), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(352982020), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(352986116), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(352990212), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(352994308), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(352998404), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(353002500), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(353006596), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(353010692), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(353014788), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(353018884), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(353022980), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(353027076), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(353031172), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(353035268), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(353039364), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(352872452), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(352876548), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(352880644), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(352884740), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(352888836), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(352892932), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(352897028), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(352901124), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(352905220), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(352909316), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(352913412), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(352974852), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(352978948), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(352983044), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(352987140), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(352991236), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(352995332), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(352999428), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(353003524), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(353007620), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(353011716), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(353015812), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(353019908), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(353024004), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(353028100), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(353032196), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(353036292), Module = cms.string('whole')),
+    cms.PSet(Dead_detID = cms.int32(353040388), Module = cms.string('whole'))
+    )
+
+
     process.mix.digitizers.pixel.useDB = False
     process.mix.digitizers.pixel.DeadModules_DB = False
     process.mix.digitizers.pixel.NumPixelBarrel = cms.int32(4)

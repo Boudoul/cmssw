@@ -125,7 +125,7 @@ def customise_Digi(process):
     cms.PSet(Dead_detID = cms.int32(353163268), Module = cms.string('whole')),
     cms.PSet(Dead_detID = cms.int32(353167364), Module = cms.string('whole')),
     cms.PSet(Dead_detID = cms.int32(353171460), Module = cms.string('whole')),
-    cms.PSet(Dead_detID = cms.int32(353175556, Module = cms.string('whole'))
+    cms.PSet(Dead_detID = cms.int32(353175556), Module = cms.string('whole'))
     )
 
 

@@ -5,6 +5,11 @@ siPixelFakeGainOfflineESSource = cms.ESSource("SiPixelFakeGainOfflineESSource",
         )
 es_prefer_fake_gain = cms.ESPrefer("SiPixelFakeGainOfflineESSource","siPixelFakeGainOfflineESSource")
 
+siPixelFakeQualityESSource = cms.ESSource("SiPixelFakeQualityESSource",
+        file = 
+cms.FileInPath('SLHCUpgradeSimulations/Geometry/data/PhaseI/BadModuleGeometry_phase1.txt')
+        )
+es_prefer_fake_quality = cms.ESPrefer("SiPixelFakeQualityESSource","siPixelFakeQualityESSource")
 # from Geometry.TrackerGeometryBuilder.trackerGeometry_cfi import * Double check this later
 # TrackerDigiGeometryESModule.applyAlignment = False
 

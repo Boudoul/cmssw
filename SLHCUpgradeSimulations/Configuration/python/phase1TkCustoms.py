@@ -47,7 +47,7 @@ def customise_Digi(process):
     process.mix.digitizers.pixel.MissCalibrate = False
     process.mix.digitizers.pixel.LorentzAngle_DB = False
     process.mix.digitizers.pixel.killModules = True
-    DeadModules = cms.VPSet(
+    process.mix.digitizers.pixel.DeadModules = cms.VPSet(
     cms.PSet(Dead_detID = cms.int32(352711684), Module = cms.string('whole')),
     cms.PSet(Dead_detID = cms.int32(352715780), Module = cms.string('whole')),
     cms.PSet(Dead_detID = cms.int32(352719876), Module = cms.string('whole')),

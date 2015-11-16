@@ -554,6 +554,7 @@ if (process.runType.getRunType() == process.runType.hi_run):
     process.SiStripAnalyserHI.TkMapCreationFrequency  = -1
     process.SiStripAnalyserHI.ShiftReportFrequency = -1
     process.SiStripAnalyserHI.StaticUpdateFrequency = 5
+    process.SiStripAnalyserHI.MonitorSiStripBackPlaneCorrection = cms.bool(False)
     process.SiStripClients  = cms.Sequence(process.SiStripAnalyserHI)
     ### TRACKING
     process.load("DQM.TrackingMonitorClient.TrackingClientConfigP5_HeavyIons_cff")
@@ -563,9 +564,10 @@ if (process.runType.getRunType() == process.runType.hi_run):
     process.TrackingClient = cms.Sequence( process.TrackingAnalyserHI )
 
     # Reco for HI collisions
-    process.load("Configuration.StandardSequences.ReconstructionHeavyIons_cff")
+    #process.load("Configuration.StandardSequences.ReconstructionHeavyIons_cff")
+    process.load("RecoHI.HiTracking.LowPtTracking_PbPb_cff")
     process.RecoForDQM_LocalReco = cms.Sequence(process.siPixelDigis*process.siStripDigis*process.siStripVRDigis*process.gtDigis*process.trackerlocalreco)
-    process.RecoForDQM_TrkReco = cms.Sequence(process.offlineBeamSpot*process.heavyIonTracking)
+    process.RecoForDQM_TrkReco = cms.Sequence(process.offlineBeamSpot*process.hiBasicTracking)
     
     process.p = cms.Path(process.scalersRawToDigi*
                          process.APVPhases*
@@ -580,7 +582,7 @@ if (process.runType.getRunType() == process.runType.hi_run):
                          process.SiStripSources_TrkReco*
                          process.multFilter*
                          process.SiStripBaselineValidator*
-                         process.TrackingClients
+                         process.TrackingClient
                          )
     
 

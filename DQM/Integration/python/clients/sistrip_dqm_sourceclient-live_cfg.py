@@ -11,11 +11,11 @@ process.MessageLogger = cms.Service("MessageLogger",
     destinations = cms.untracked.vstring('cout')
 )
 
-live=True
+live=False
 # uncomment for running on lxplus
 #live=False
 offlineTesting=not live
-#print "live: "+str(live)+" ==> offlineTesting: "+str(offlineTesting)
+print "live: "+str(live)+" ==> offlineTesting: "+str(offlineTesting)
 
 #----------------------------
 # Event Source
@@ -487,6 +487,7 @@ process.siStripFEDMonitor.RawDataTag = cms.untracked.InputTag("rawDataCollector"
 #--------------------------------------------------
 # Heavy Ion Specific Fed Raw Data Collection Label
 #--------------------------------------------------
+print "toto"
 
 print "Running with run type = ", process.runType.getRunType()
 ### HEAVY ION SETTING

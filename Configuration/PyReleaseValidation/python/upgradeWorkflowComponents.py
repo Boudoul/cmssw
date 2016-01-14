@@ -1,7 +1,6 @@
 # You will need separate scenarios HERE for full and fast. DON'T CHANGE THE ORDER, only
 # append new keys. Otherwise the numbering for the runTheMatrix tests will change.
 upgradeKeys=['2017',
-             '2017PU',
 	     '2023',   
 	     '2023dev', 
 	     '2023sim',
@@ -12,7 +11,7 @@ upgradeKeys=['2017',
 	     ]
 
 
-upgradeGeoms={ '2017' : 'Extended2017',
+upgradeGeoms={'2017' : 'Extended2017',
 	     '2023' : 'Extended2023',   
 	     '2023dev' : 'Extended2023dev', 
 	     '2023sim' : 'Extended2023',

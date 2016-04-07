@@ -1105,7 +1105,7 @@ defaultDataSets['Extended2023HGCalScopeDoc_ee28_fh12']=defaultDataSets['Extended
 defaultDataSets['Extended2023HGCalScopeDoc_ee24_fh11']=defaultDataSets['Extended2023HGCalMuon']
 defaultDataSets['Extended2023HGCalScopeDoc_ee18_fh9']=defaultDataSets['Extended2023HGCalMuon']
 defaultDataSets['Extended2023HGCalNoExtPix_ee18']=defaultDataSets['Extended2023HGCalMuon']
-defaultDataSets['Extended2023TTI']='CMSSW_6_2_0_SLHC28_patch1-DES23_62_V1_Extended2023TTI'
+defaultDataSets['Extended2023TTI']='CMSSW_6_2_0_SLHC28_patch1-DES23_62_V1_UP2023TTI-v'
 keys=defaultDataSets.keys()
 for key in keys:
   defaultDataSets[key+'PU']=defaultDataSets[key]
@@ -1126,8 +1126,7 @@ PUDataSets={}
 for ds in defaultDataSets:
     key='MinBias_TuneZ2star_14TeV_pythia6'+'_'+ds
     name=baseDataSetReleaseBetter[key]
-#    PUDataSets[ds]={'-n':10,'--pileup':'AVE_140_BX_25ns','--pileup_input':'das:/RelValMinBias_TuneZ2star_14TeV/%s/GEN-SIM'%(name,)}
-    PUDataSets[ds]={'-n':10,'--pileup':'AVE_140_BX_25ns','--pileup_input':'file:/afs/cern.ch/user/b/boudoul/prodtt/HLLHC/12846_MinBias_TuneZ2star_14TeV+MinBias_TuneZ2star_14TeV_pythia6_Extended2023TTI_GenSimHLBeamSpotFull+DigiTrkTrigFull_Extended2023TTI/step1.root'}
+    PUDataSets[ds]={'-n':10,'--pileup':'AVE_140_BX_25ns','--pileup_input':'das:/RelValMinBias_TuneZ2star_14TeV/%s/GEN-SIM'%(name,)}
 
 
 upgradeStepDict={}

@@ -1105,6 +1105,7 @@ defaultDataSets['Extended2023HGCalScopeDoc_ee28_fh12']=defaultDataSets['Extended
 defaultDataSets['Extended2023HGCalScopeDoc_ee24_fh11']=defaultDataSets['Extended2023HGCalMuon']
 defaultDataSets['Extended2023HGCalScopeDoc_ee18_fh9']=defaultDataSets['Extended2023HGCalMuon']
 defaultDataSets['Extended2023HGCalNoExtPix_ee18']=defaultDataSets['Extended2023HGCalMuon']
+defaultDataSets['Extended2023TTI']='CMSSW_6_2_0_SLHC28_patch1-DES23_62_V1_Extended2023TTI'
 keys=defaultDataSets.keys()
 for key in keys:
   defaultDataSets[key+'PU']=defaultDataSets[key]
@@ -1125,7 +1126,8 @@ PUDataSets={}
 for ds in defaultDataSets:
     key='MinBias_TuneZ2star_14TeV_pythia6'+'_'+ds
     name=baseDataSetReleaseBetter[key]
-    PUDataSets[ds]={'-n':10,'--pileup':'AVE_140_BX_25ns','--pileup_input':'das:/RelValMinBias_TuneZ2star_14TeV/%s/GEN-SIM'%(name,)}
+#    PUDataSets[ds]={'-n':10,'--pileup':'AVE_140_BX_25ns','--pileup_input':'das:/RelValMinBias_TuneZ2star_14TeV/%s/GEN-SIM'%(name,)}
+    PUDataSets[ds]={'-n':10,'--pileup':'AVE_140_BX_25ns','--pileup_input':'file:/afs/cern.ch/user/b/boudoul/prodtt/HLLHC/12846_MinBias_TuneZ2star_14TeV+MinBias_TuneZ2star_14TeV_pythia6_Extended2023TTI_GenSimHLBeamSpotFull+DigiTrkTrigFull_Extended2023TTI/step1.root'}
 
 
 upgradeStepDict={}
@@ -1197,15 +1199,18 @@ for k in upgradeKeys:
     
     if k2 in PUDataSets:
         upgradeStepDict['DigiFullPU'][k]=merge([PUDataSets[k2],upgradeStepDict['DigiFull'][k]])
-    upgradeStepDict['DigiTrkTrigFull'][k] = {'-s':'DIGI:pdigi_valid,L1,L1TrackTrigger,DIGI2RAW,RECO:pixeltrackerlocalreco',
+    upgradeStepDict['DigiTrkTrigFull'][k] = {'-s':'DIGI:pdigi_valid,L1,L1TrackTrigger,DIGI2RAW',
                                              '--conditions':gt,
                                              '--datatier':'GEN-SIM-DIGI-RAW',
                                              '-n':'10',
                                              '--magField' : '38T_PostLS1',
                                              '--eventcontent':'FEVTDEBUGHLT',
-                                             '--geometry' : geom
+                                             '--geometry' : geom,
+					     '--customise_commands' : '"process.L1TrackTrigger=cms.Sequence(process.TrackTriggerClustersStubs*process.TrackTriggerAssociatorClustersStubs)"'
                                              }
     if cust!=None : upgradeStepDict['DigiTrkTrigFull'][k]['--customise']=cust
+    if k2 in PUDataSets:
+        upgradeStepDict['DigiTrkTrigFullPU'][k]=merge([PUDataSets[k2],upgradeStepDict['DigiTrkTrigFull'][k]])
 
     upgradeStepDict['RecoFull'][k] = {'-s':'RAW2DIGI,L1Reco,RECO,VALIDATION,DQM',
                                       '--conditions':gt,

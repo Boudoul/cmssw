@@ -39,7 +39,8 @@ upgradeKeys=['2017',
              'Extended2023HGCalScopeDoc_ee24_fh11PU',
              'Extended2023HGCalScopeDoc_ee18_fh9PU',
              'Extended2023HGCalNoExtPix_ee18',
-             'Extended2023HGCalNoExtPix_ee18PU'
+             'Extended2023HGCalNoExtPix_ee18PU',
+             'Extended2023TTIPU'
 	     
          ]
 
@@ -188,7 +189,7 @@ upgradeFragments=['FourMuPt_1_200_cfi','SingleElectronPt10_cfi',
 # step5 is digi+l1tracktrigger
 # step6 is fastsim
 # step7 is fastsim harvesting
-upgradeSteps=['GenSimFull','GenSimHLBeamSpotFull','GenSimHLBeamSpotfixFull','DigiFull','RecoFull','RecoFullHGCAL','HARVESTFull','DigiTrkTrigFull','FastSim','HARVESTFast','DigiFullPU','RecoFullPU','RecoFullPUHGCAL','HARVESTFullPU','DigiFullTrigger']
+upgradeSteps=['GenSimFull','GenSimHLBeamSpotFull','GenSimHLBeamSpotfixFull','DigiFull','RecoFull','RecoFullHGCAL','HARVESTFull','DigiTrkTrigFull','DigiTrkTrigFullPU','FastSim','HARVESTFast','DigiFullPU','RecoFullPU','RecoFullPUHGCAL','HARVESTFullPU','DigiFullTrigger']
 
 upgradeScenToRun={ '2017':['GenSimFull','DigiFull','RecoFull','HARVESTFull'],
                    '2019':['GenSimFull','DigiFull','RecoFull','HARVESTFull'],
@@ -229,7 +230,8 @@ upgradeScenToRun={ '2017':['GenSimFull','DigiFull','RecoFull','HARVESTFull'],
                    'Extended2023HGCalScopeDoc_ee24_fh11PU': ['GenSimHLBeamSpotFull','DigiFullPU','RecoFullPUHGCAL'],
                    'Extended2023HGCalScopeDoc_ee18_fh9PU': ['GenSimHLBeamSpotFull','DigiFullPU','RecoFullPUHGCAL'],
                    'Extended2023HGCalNoExtPix_ee18' : ['GenSimHLBeamSpotFull','DigiFull','RecoFullHGCAL'],
-                   'Extended2023HGCalNoExtPix_ee18PU' : ['GenSimHLBeamSpotFull','DigiFullPU','RecoFullPUHGCAL']
+                   'Extended2023HGCalNoExtPix_ee18PU' : ['GenSimHLBeamSpotFull','DigiFullPU','RecoFullPUHGCAL'],
+                   'Extended2023TTIPU':['GenSimHLBeamSpotFull','DigiTrkTrigFullPU'], ##no need to go beyond local reco
                    }
 
 from  Configuration.PyReleaseValidation.relval_steps import Kby

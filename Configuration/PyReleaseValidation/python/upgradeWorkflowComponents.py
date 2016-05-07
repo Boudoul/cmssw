@@ -35,7 +35,8 @@ upgradeCustoms={ '2023' : 'SLHCUpgradeSimulations/Configuration/combinedCustoms.
 upgradeEras={ '2017' : 'Run2_2017',
 	      '2023sim' : 'Phase2',
 	      '2023tilted' : 'Phase2',
-	      '2023LReco' : 'Phase2'
+	      '2023LReco' : 'Phase2',
+	      '2023Reco' : 'Phase2'
               }
 
 upgradeFragments=['FourMuPt_1_200_pythia8_cfi',
@@ -104,7 +105,7 @@ upgradeScenToRun={ '2017':['GenSimFull','DigiFull','RecoFull','HARVESTFull'],
                    #'2017':['GenSimFull'],
 		   '2017PU':['GenSimFull','DigiFullPU','RecoFullPU','HARVESTFullPU'],#full sequence
 		   '2023':['GenSimFull','DigiFull','RecoFull'],#full sequence
-		   '2023tilted':['GenSimFull','DigiFulllocalreco'],#dev scenario
+		   '2023tilted':['GenSimFull','DigiFull','RecoFull'],#dev scenario
 		   '2023sim':['GenSimFull'],#sim scenario
 		   '2023LReco':['GenSimFull','DigiFulllocalreco'],#local reco scneario
 		   '2023Reco':['GenSimFull','DigiFull','RecoFull']#full reco scenario

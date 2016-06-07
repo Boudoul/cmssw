@@ -195,6 +195,14 @@ steps['RunJetHT2015HLHS']={'INPUT':InputInfo(dataSet='/JetHT/Run2015D-v1/RAW',la
 steps['RunZeroBias2015HLHS']={'INPUT':InputInfo(dataSet='/ZeroBias/Run2015D-v1/RAW',label='zb2015HLHT',events=100000,location='STD', ls=Run2015HLHS)}
 steps['RunSingleMu2015HLHS']={'INPUT':InputInfo(dataSet='/SingleMuon/Run2015D-v1/RAW',label='sigMu2015HLHT',events=100000,location='STD', ls=Run2015HLHS)}
 
+#### run2 Cosmic ####
+##Run 256259 @ 0T 2015B###
+##Run 272133 @ 3.8T 2016B###
+steps['RunCosmics2015B']={'INPUT':InputInfo(dataSet='/Cosmics/Run2015C-v1/RAW',label='cos2015B',run=[256259],events=100000,location='STD')}
+steps['RunCosmics2016B']={'INPUT':InputInfo(dataSet='/Cosmics/Run2016B-v1/RAW',label='cos2016B',run=[272133],events=100000,location='STD')}
+
+
+
 def gen(fragment,howMuch):
     global step1Defaults
     return merge([{'cfg':fragment},howMuch,step1Defaults])

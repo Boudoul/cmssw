@@ -101,6 +101,8 @@ workflows[4.75] = ['',['RunJet2012D','HLTD','RECODR1reHLT','HARVESTDR1reHLT']]
 workflows[4.76] = ['',['ZMuSkim2012D','HLTDSKIM','RECODR1reHLT','HARVESTDR1reHLT']]
 workflows[4.77] = ['',['ZElSkim2012D','HLTDSKIM','RECODR1reHLT','HARVESTDR1reHLT']]
 workflows[4.78] = ['',['WElSkim2012D','HLTDSKIM','RECODR1reHLT','HARVESTDR1reHLT']]
+workflows[4.79] = ['',['RunCosmics2015B','RECOCOSD','ALCACOSD','HARVESTDC']]
+workflows[4.80] = ['',['RunCosmics2016B','RECOCOSD','ALCACOSD','HARVESTDC']]
 
 workflows[140.51] = ['',['RunHI2010','REPACKHID','RECOHID11St3','HARVESTDHI']]
 workflows[140.52] = ['',['RunHI2010','RECOHID10','RECOHIR10D11','HARVESTDHI']]

@@ -101,7 +101,7 @@ def selectedLS(list_runs=[],maxNum=-1,l_json=data_json2015):
 
 InputInfoNDefault=2000000    
 class InputInfo(object):
-    def __init__(self,dataSet,label='',run=[],ls={},files=1000,events=InputInfoNDefault,split=10,location='CAF',ib_blacklist=None,ib_block=None) :
+    def __init__(self,dataSet,label='',run=[],ls={},files=1000,events=InputInfoNDefault,split=1,location='CAF',ib_blacklist=None,ib_block=None) :
         self.run = run
         self.ls = ls
         self.files = files

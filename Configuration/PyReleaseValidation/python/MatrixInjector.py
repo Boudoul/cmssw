@@ -105,7 +105,7 @@ class MatrixInjector(object):
             "mergedLFNBase" : "/store/relval",
             "dashboardActivity" : "relval",
             "Multicore" : 1,   # do not set multicore for the whole chain
-            "Memory" : 3000,
+            "Memory" : 3500,
             "SizePerEvent" : 1234,
             "TimePerEvent" : 0.1
             }
@@ -136,7 +136,7 @@ class MatrixInjector(object):
             "GlobalTag": None,
             "InputDataset" : None,                                       #Input Dataset to be processed
             "SplittingAlgo"  : "LumiBased",                        #Splitting Algorithm
-            "LumisPerJob" : 10,               #Size of jobs in terms of splitting algorithm
+            "LumisPerJob" : 1,               #Size of jobs in terms of splitting algorithm
             "nowmIO": {},
             "Multicore" : opt.nThreads,                       # this is the per-taskchain Multicore; it's the default assigned to a task if it has no value specified 
             "KeepOutput" : False
@@ -148,7 +148,7 @@ class MatrixInjector(object):
             "ConfigCacheID" : None,                            #Processing Config id
             "GlobalTag": None,
             "SplittingAlgo"  : "LumiBased",                        #Splitting Algorithm
-            "LumisPerJob" : 10,               #Size of jobs in terms of splitting algorithm
+            "LumisPerJob" : 1,               #Size of jobs in terms of splitting algorithm
             "nowmIO": {},
             "Multicore" : opt.nThreads,                       # this is the per-taskchain Multicore; it's the default assigned to a task if it has no value specified 
             "KeepOutput" : False

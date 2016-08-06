@@ -2,6 +2,7 @@
 # append new keys. Otherwise the numbering for the runTheMatrix tests will change.
 upgradeKeys=['2017',
              '2017PU',
+	     '2017cosm'
 	     '2023',   
 	     '2023tilted', 
 	     '2023sim',
@@ -14,6 +15,7 @@ upgradeKeys=['2017',
 
 
 upgradeGeoms={ '2017' : 'DB:Extended',
+	       
                '2023' : 'Extended2023',   
                '2023tilted' : 'Extended2023tilted', 
                '2023sim' : 'Extended2023sim',
@@ -22,6 +24,7 @@ upgradeGeoms={ '2017' : 'DB:Extended',
                }
 	       
 upgradeGTs={ '2017' : 'auto:phase1_2017_realistic',
+	     '2017cosm' : '81X_upgrade2017cosmics_realistic_peak_v0',
 	     '2023' :  'auto:run2_mc',
 	     '2023tilted' :  'auto:run2_mc',
 	     '2023sim' : 'auto:run2_mc',
@@ -166,6 +169,7 @@ howMuches={'FourMuPt_1_200_pythia8_cfi':Kby(10,100),
 	   'DYtoTauTau_M_50_TuneD6T_14TeV_pythia6_tauola_cff':Kby(9,100),
            'TTbar_13TeV_TuneCUETP8M1_cfi':Kby(9,50),
 	   'MinBias_13TeV_pythia8_TuneCUETP8M1_cfi':Kby(90,100)
+	   'xxxx'
            }
 
 upgradeDatasetFromFragment={'FourMuPt_1_200_pythia8_cfi': 'FourMuPt1_200',
@@ -214,6 +218,7 @@ upgradeDatasetFromFragment={'FourMuPt_1_200_pythia8_cfi': 'FourMuPt1_200',
 			    'DYtoTauTau_M_50_TuneD6T_14TeV_pythia6_tauola_cff' : 'DYtoTauTau_M_50_TuneD6T_14TeV',
 			    'TTbar_13TeV_TuneCUETP8M1_cfi' : 'TTbar_13',
 			    'MinBias_13TeV_pythia8_TuneCUETP8M1_cfi' : 'MinBias_13'
+			    'xxxx'
                             }
 
 

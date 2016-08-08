@@ -1105,6 +1105,7 @@ defaultDataSets['Extended2023HGCalScopeDoc_ee28_fh12']=defaultDataSets['Extended
 defaultDataSets['Extended2023HGCalScopeDoc_ee24_fh11']=defaultDataSets['Extended2023HGCalMuon']
 defaultDataSets['Extended2023HGCalScopeDoc_ee18_fh9']=defaultDataSets['Extended2023HGCalMuon']
 defaultDataSets['Extended2023HGCalNoExtPix_ee18']=defaultDataSets['Extended2023HGCalMuon']
+defaultDataSets['Extended2023TTI']='CMSSW_6_2_0_SLHC28_patch1-DES23_62_V1_FlatBS-v'
 keys=defaultDataSets.keys()
 for key in keys:
   defaultDataSets[key+'PU']=defaultDataSets[key]
@@ -1197,15 +1198,18 @@ for k in upgradeKeys:
     
     if k2 in PUDataSets:
         upgradeStepDict['DigiFullPU'][k]=merge([PUDataSets[k2],upgradeStepDict['DigiFull'][k]])
-    upgradeStepDict['DigiTrkTrigFull'][k] = {'-s':'DIGI:pdigi_valid,L1,L1TrackTrigger,DIGI2RAW,RECO:pixeltrackerlocalreco',
+    upgradeStepDict['DigiTrkTrigFull'][k] = {'-s':'DIGI:pdigi_valid,L1,L1TrackTrigger,DIGI2RAW',
                                              '--conditions':gt,
                                              '--datatier':'GEN-SIM-DIGI-RAW',
                                              '-n':'10',
                                              '--magField' : '38T_PostLS1',
                                              '--eventcontent':'FEVTDEBUGHLT',
-                                             '--geometry' : geom
+                                             '--geometry' : geom,
+					     '--customise_commands' : '"process.L1TrackTrigger=cms.Sequence(process.TrackTriggerClustersStubs*process.TrackTriggerAssociatorClustersStubs)"'
                                              }
     if cust!=None : upgradeStepDict['DigiTrkTrigFull'][k]['--customise']=cust
+    if k2 in PUDataSets:
+        upgradeStepDict['DigiTrkTrigFullPU'][k]=merge([PUDataSets[k2],upgradeStepDict['DigiTrkTrigFull'][k]])
 
     upgradeStepDict['RecoFull'][k] = {'-s':'RAW2DIGI,L1Reco,RECO,VALIDATION,DQM',
                                       '--conditions':gt,

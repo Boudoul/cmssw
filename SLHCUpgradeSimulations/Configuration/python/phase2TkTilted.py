@@ -106,7 +106,7 @@ def customise_Reco(process,pileup):
     # This snippet must be after the loading of recoFromSimDigis_cff    
     process.pixeltrackerlocalreco = cms.Sequence(
         process.siPhase2Clusters +
-        process.phase2ITPixelClusters +
+        #process.phase2ITPixelClusters +
         process.siPixelClusters +
         process.siPixelRecHits
     )

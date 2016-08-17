@@ -10,6 +10,7 @@ upgradeKeys=[
     '2023D2PU',
     '2023D3',
     '2023D3PU',
+    '2023D4'
 ]
 
 upgradeSteps=[
@@ -58,6 +59,13 @@ upgradeProperties = {
     },
     '2023D3' : {
         'Geom' : 'Extended2023D3',
+        'GT' : 'auto:run2_mc',
+        'Custom' : 'SLHCUpgradeSimulations/Configuration/combinedCustoms.cust_2023tilted',
+        'Era' : 'Phase2C2',
+        'ScenToRun' : ['GenSimFull','DigiFull','RecoFullLocal'],
+    },
+    '2023D4' : {
+        'Geom' : 'Extended2023D4',
         'GT' : 'auto:run2_mc',
         'Custom' : 'SLHCUpgradeSimulations/Configuration/combinedCustoms.cust_2023tilted',
         'Era' : 'Phase2C2',

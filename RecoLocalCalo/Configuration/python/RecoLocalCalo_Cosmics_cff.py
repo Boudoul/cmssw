@@ -22,11 +22,11 @@ from RecoLocalCalo.Configuration.hcalLocalReco_cff import *
 # sequence CaloLocalReco and CaloGlobalReco
 #
 calolocalrecoCosmics = cms.Sequence(ecalLocalRecoSequenceCosmics+hcalLocalRecoSequence)
-hbheprereco.puCorrMethod = 0 
-hbheprereco.firstSample = 0
-hbheprereco.samplesToAdd = 10
-hbheprereco.correctForTimeslew = False
-hbheprereco.correctForPhaseContainment = False
+hbheprereco.puCorrMethod = cms.uint32(0) 
+hbheprereco.firstSample = cms.uint32(0)
+hbheprereco.samplesToAdd = cms.uint32(10)
+hbheprereco.correctForTimeslew = cms.bool(False)
+hbheprereco.correctForPhaseContainment = cms.bool(False)
 horeco.firstSample = 0
 horeco.samplesToAdd = 10
 horeco.correctForTimeslew = False

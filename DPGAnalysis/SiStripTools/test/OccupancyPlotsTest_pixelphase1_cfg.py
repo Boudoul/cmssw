@@ -1,27 +1,29 @@
 import FWCore.ParameterSet.Config as cms
 import FWCore.ParameterSet.VarParsing as VarParsing
+from Configuration.StandardSequences.Eras import eras
 
-process = cms.Process("OccupancyPlotsTest")
+process = cms.Process('OccupancyPlotsTest',eras.Run2_2017_NewFPix)
+
 
 #prepare options
 
 options = VarParsing.VarParsing("analysis")
 
-options.register ('globalTag',
-                  "DONOTEXIST",
-                  VarParsing.VarParsing.multiplicity.singleton, # singleton or list
-                  VarParsing.VarParsing.varType.string,          # string, int, or float
-                  "GlobalTag")
-options.register ('HLTprocess',
-                  "HLT",
-                  VarParsing.VarParsing.multiplicity.singleton, # singleton or list
-                  VarParsing.VarParsing.varType.string,          # string, int, or float
-                  "HLTProcess")
-options.register ('triggerPath',
-                  "HLT_*",
-                  VarParsing.VarParsing.multiplicity.singleton, # singleton or list
-                  VarParsing.VarParsing.varType.string,          # string, int, or float
-                  "list of HLT paths")
+#options.register ('globalTag',
+#                  "DONOTEXIST",
+#                  VarParsing.VarParsing.multiplicity.singleton, # singleton or list
+#                  VarParsing.VarParsing.varType.string,          # string, int, or float
+#                  "GlobalTag")
+#options.register ('HLTprocess',
+#                  "HLT",
+#                  VarParsing.VarParsing.multiplicity.singleton, # singleton or list
+#                  VarParsing.VarParsing.varType.string,          # string, int, or float
+#                  "HLTProcess")
+#options.register ('triggerPath',
+#                  "HLT_*",
+#                  VarParsing.VarParsing.multiplicity.singleton, # singleton or list
+#                  VarParsing.VarParsing.varType.string,          # string, int, or float
+#                  "list of HLT paths")
 
 options.parseArguments()
 
@@ -99,24 +101,30 @@ process.MessageLogger.cerr.FwkReport = cms.untracked.PSet(
 
 #------------------------------------------------------------------
 
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(options.maxEvents) )
+process.maxEvents = cms.untracked.PSet(
+    input = cms.untracked.int32(-1)
+)
+
 
 process.source = cms.Source("PoolSource",
-                    fileNames = cms.untracked.vstring(options.inputFiles),
-#                    skipBadFiles = cms.untracked.bool(True),
+    fileNames = cms.untracked.vstring(
+        '/store/relval/CMSSW_8_1_0_pre12/RelValZMM_13/GEN-SIM-RECO/81X_upgrade2017_realistic_v13_BpixFpixGeom-v1/00000/322C46AC-8C85-E611-B6AE-0025905A60E4.root',
+	'/store/relval/CMSSW_8_1_0_pre12/RelValZMM_13/GEN-SIM-RECO/81X_upgrade2017_realistic_v13_BpixFpixGeom-v1/00000/A4E319AF-8C85-E611-9932-0CC47A4D7602.root',
+	'/store/relval/CMSSW_8_1_0_pre12/RelValZMM_13/GEN-SIM-RECO/81X_upgrade2017_realistic_v13_BpixFpixGeom-v1/00000/DCF03CE3-8B85-E611-AF65-0025905B85A0.root'
+),
                     inputCommands = cms.untracked.vstring("keep *", "drop *_MEtoEDMConverter_*_*")
                     )
 
 # HLT Selection ------------------------------------------------------------
-process.load("HLTrigger.HLTfilters.triggerResultsFilter_cfi")
-process.triggerResultsFilter.triggerConditions = cms.vstring(options.triggerPath)
-process.triggerResultsFilter.hltResults = cms.InputTag( "TriggerResults", "", options.HLTprocess )
-process.triggerResultsFilter.l1tResults = cms.InputTag( "" )
-process.triggerResultsFilter.throw = cms.bool(False)
+#process.load("HLTrigger.HLTfilters.triggerResultsFilter_cfi")
+#process.triggerResultsFilter.triggerConditions = cms.vstring(options.triggerPath)
+#process.triggerResultsFilter.hltResults = cms.InputTag( "TriggerResults", "", options.HLTprocess )
+#process.triggerResultsFilter.l1tResults = cms.InputTag( "" )
+#process.triggerResultsFilter.throw = cms.bool(False)
 
-process.seqHLTSelection = cms.Sequence(process.triggerResultsFilter)
-if options.triggerPath=="*":
-    process.seqHLTSelection = cms.Sequence()
+#process.seqHLTSelection = cms.Sequence(process.triggerResultsFilter)
+#if options.triggerPath=="*":
+#    process.seqHLTSelection = cms.Sequence()
 
 
 #--------------------------------------
@@ -253,16 +261,18 @@ process.load("DPGAnalysis.SiStripTools.duplicaterechits_cfi")
 #----GlobalTag ------------------------
 
 #process.load("Configuration.StandardSequences.GeometryDB_cff")
-process.load("Configuration.Geometry.GeometryExtended2017Reco_cff")
+#process.load("Configuration.Geometry.GeometryExtended2017Reco_cff")
 #process.load("Configuration.Geometry.GeometryExtendedPhaseIPixel_cff")
-process.load('Configuration.StandardSequences.MagneticField_38T_PostLS1_cff')
+process.load('Configuration.StandardSequences.MagneticField_cff')
 process.load("Configuration.StandardSequences.Reconstruction_cff")
+process.load('Configuration.Geometry.GeometryExtended2017NewFPixReco_cff')
 
-process.load("Configuration.StandardSequences.FrontierConditions_GlobalTag_condDBv2_cff")
-from Configuration.AlCa.GlobalTag_condDBv2 import GlobalTag
-process.GlobalTag = GlobalTag(process.GlobalTag, options.globalTag, '')
+process.load("Configuration.StandardSequences.FrontierConditions_GlobalTag_cff")
+from Configuration.AlCa.GlobalTag import GlobalTag
+process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:phase1_2017_realistic', '')
 
-from SLHCUpgradeSimulations.Configuration.phase1TkCustoms import *
+
+#from SLHCUpgradeSimulations.Configuration.phase1TkCustoms import *
 
 
 process.siStripQualityESProducer.ListOfRecordToMerge=cms.VPSet(
@@ -282,8 +292,8 @@ process.TFileService = cms.Service('TFileService',
                                    fileName = cms.string('OccupancyPlotsTest_pixelphase1_'+options.tag+'.root')
                                    )
 
-process = customise_Reco(process,0)
-process = customise_condOverRides(process)
+#process = customise_Reco(process,0)
+#process = customise_condOverRides(process)
 
 process.myrereco = cms.Sequence(
     process.siPixelRecHits + process.siStripMatchedRecHits +
@@ -291,7 +301,7 @@ process.myrereco = cms.Sequence(
 
 process.p0 = cms.Path(
 #    process.myrereco +
-    process.seqHLTSelection +
+#    process.seqHLTSelection +
     process.seqProducers +
     process.seqAnalyzers +
     process.trackcount +
@@ -299,4 +309,4 @@ process.p0 = cms.Path(
     )
 
 
-#print process.dumpPython()
+print process.dumpPython()

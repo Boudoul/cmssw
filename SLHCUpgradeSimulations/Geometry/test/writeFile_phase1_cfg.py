@@ -3,8 +3,8 @@ import FWCore.ParameterSet.Config as cms
 process = cms.Process("ICALIB")
 
 process.load("Configuration.StandardSequences.Services_cff")
-process.load('Configuration.Geometry.GeometryExtended2017_cff')
-process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_condDBv2_cff')
+process.load('Configuration.Geometry.GeometryExtended2017NewFPixReco_cff')
+process.load("Configuration.StandardSequences.FrontierConditions_GlobalTag_cff")
 
 
 #process.TrackerDigiGeometryESModule = cms.ESProducer( "TrackerDigiGeometryESModule",
@@ -21,7 +21,7 @@ process.trackerGeometry.applyAlignment = cms.bool(False)
 
 
 from Configuration.AlCa.GlobalTag_condDBv2 import GlobalTag
-process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:upgrade2017', '')
+process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:phase1_2017_realistic', '')
 
 #process.load("Configuration.StandardSequences.FrontierConditions_GlobalTag_cff")
 #process.GlobalTag.globaltag = 'DESIGN61_V10::All'

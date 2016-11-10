@@ -44,4 +44,4 @@ ALCARECOTkAlMinBias.TwoBodyDecaySelector.applyMassrangeFilter = False
 ALCARECOTkAlMinBias.TwoBodyDecaySelector.applyChargeFilter = False
 ALCARECOTkAlMinBias.TwoBodyDecaySelector.applyAcoplanarityFilter = False
 
-seqALCARECOTkAlMinBias = cms.Sequence(ALCARECOTkAlMinBiasHLT*~ALCARECOTkAlMinBiasNOTHLT+ALCARECOTkAlMinBiasDCSFilter+ALCARECOTkAlMinBias)
+seqALCARECOTkAlMinBias = cms.Sequence(ALCARECOTkAlMinBiasDCSFilter+ALCARECOTkAlMinBias)

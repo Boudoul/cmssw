@@ -46,7 +46,8 @@ PixelOfflineDQMClientWithDataCertification = cms.Sequence(sipixelQTester+
 							  sipixelCertification)
 PixelOfflineDQMClientNoDataCertification = cms.Sequence(sipixelQTester+
                                                           sipixelEDAClient)
-
+PixelOfflineDQMClientNoDataCertification_cosmics = cms.Sequence(sipixelQTester+
+                                                          sipixelEDAClient)
 PixelOfflineDQMClientWithDataCertificationHI = cms.Sequence(PixelOfflineDQMClientNoDataCertification)
 PixelOfflineDQMClientWithDataCertificationHI.replace(sipixelQTester,sipixelQTesterHI)
 
@@ -56,4 +57,5 @@ from Configuration.Eras.Modifier_phase1Pixel_cff import phase1Pixel
 phase1Pixel.toReplaceWith(PixelOfflineDQMClient, siPixelPhase1OfflineDQM_harvesting)
 #TODO: properly upgrade these and the others
 phase1Pixel.toReplaceWith(PixelOfflineDQMClientNoDataCertification, siPixelPhase1OfflineDQM_harvesting)
+phase1Pixel.toReplaceWith(PixelOfflineDQMClientNoDataCertification_cosmics, siPixelPhase1OfflineDQM_harvesting_cosmics)
 phase1Pixel.toReplaceWith(PixelOfflineDQMClientWithDataCertification, siPixelPhase1OfflineDQM_harvesting)

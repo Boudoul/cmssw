@@ -19,7 +19,7 @@ DQMOfflineCosmics_SecondStep_PreDPG = cms.Sequence( dqmDcsInfoClient *
                                                     ecal_dqm_client_offline *
 													hcalOfflineHarvesting *
                                                     SiStripCosmicDQMClient *
-                                                    PixelOfflineDQMClientNoDataCertification *
+                                                    PixelOfflineDQMClientNoDataCertification_cosmics *
                                                     dtClientsCosmics *
                                                     rpcTier0Client *
                                                     cscOfflineCosmicsClients *

@@ -60,6 +60,8 @@ upgradeSteps=[
     'GenSimHLBeamSpotFull',
     'GenSimHLBeamSpotFull14',
     'DigiFull',
+    'DigiFullTrigger',
+    'DigiFullTriggerPU',
     'RecoFullLocal',
     'RecoFullLocalPU',
     'RecoFull',
@@ -132,7 +134,7 @@ upgradeProperties[2023] = {
         'HLTmenu': '@fake',
         'GT' : 'auto:phase2_realistic',
         'Era' : 'Phase2C2',
-        'ScenToRun' : ['GenSimHLBeamSpotFull','DigiFull','RecoFullGlobal', 'HARVESTFullGlobal'],
+        'ScenToRun' : ['GenSimHLBeamSpotFull','DigiFullTrigger','RecoFullGlobal', 'HARVESTFullGlobal'],
     },
     '2023D5' : {
         'Geom' : 'Extended2023D5',

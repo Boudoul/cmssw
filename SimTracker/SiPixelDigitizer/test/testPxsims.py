@@ -24,7 +24,7 @@ process.source = cms.Source("PoolSource",
     fileNames =  cms.untracked.vstring(
 #    '/store/user/kotlinski/mu100/simhits/simHits.root',
 #    'file:simHits.root'
-    'file:/afs/cern.ch/work/d/dkotlins/public//MC/mu/pt100/simhits/simHits1.root'
+    '/store/relval/CMSSW_9_0_0_pre4/RelValTTbar_13/GEN-SIM-DIGI-RAW-HLTDEBUG/PU25ns_90X_mcRun2_asymptotic_v1_resub-v1/10000/00E374A6-B8EC-E611-BE24-0025905B85AA.root'
     )
 )
 
@@ -32,17 +32,16 @@ process.TFileService = cms.Service("TFileService",
     fileName = cms.string('sim_histos.root')
 )
 
-process.load("Configuration.Geometry.GeometryIdeal_cff")
-process.load("Configuration.StandardSequences.MagneticField_38T_cff")
+process.load('Configuration.StandardSequences.GeometryRecoDB_cff')
+process.load('Configuration.StandardSequences.MagneticField_cff')
 
 # needed for global transformation
 # process.load("Configuration.StandardSequences.FakeConditions_cff")
 process.load("Configuration.StandardSequences.FrontierConditions_GlobalTag_cff")# Choose the global tag here:
-#process.GlobalTag.globaltag = 'MC_53_V15::All'
-#process.GlobalTag.globaltag = 'DESIGN53_V15::All'
-#process.GlobalTag.globaltag = 'START53_V15::All'
+from Configuration.AlCa.GlobalTag import GlobalTag
+process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:run2_mc', '')
 # ideal
-process.GlobalTag.globaltag = 'MC_70_V1::All'
+#process.GlobalTag.globaltag = 'MC_70_V1::All'
 # realistiv alignment and calibrations 
 #process.GlobalTag.globaltag = 'START70_V1::All'
 
@@ -52,6 +51,7 @@ process.analysis =  cms.EDAnalyzer("PixelSimHitsTest",
 #	list = cms.string("TrackerHitsPixelBarrelHighTof"),
 	list = cms.string("TrackerHitsPixelEndcapLowTof"),
 #	list = cms.string("TrackerHitsPixelEndcapHighTof"),
+        TECsimhitsXFTag = cms.InputTag("mix","g4SimHitsTrackerHitsTECLowTof"),
         Verbosity = cms.untracked.bool(False),
 #        mode = cms.untracked.string("bpix"),
         mode = cms.untracked.string("fpix"),

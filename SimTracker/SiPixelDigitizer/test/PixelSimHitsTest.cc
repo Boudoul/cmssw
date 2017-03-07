@@ -42,6 +42,9 @@ New det-id.
 #include "Geometry/TrackerGeometryBuilder/interface/PixelGeomDetUnit.h"
 #include "Geometry/TrackerGeometryBuilder/interface/PixelGeomDetType.h"
 #include "Geometry/Records/interface/TrackerDigiGeometryRecord.h" //
+#include "FWCore/Framework/interface/ConsumesCollector.h"
+#include "SimDataFormats/CrossingFrame/interface/CrossingFrame.h"
+#include "SimDataFormats/CrossingFrame/interface/MixCollection.h"
 
 // for det id
 #include "DataFormats/TrackerCommon/interface/TrackerTopology.h"
@@ -76,7 +79,7 @@ using namespace edm;
 class PixelSimHitsTest : public edm::EDAnalyzer {
 
 public:
-  explicit PixelSimHitsTest(const edm::ParameterSet&);
+  explicit PixelSimHitsTest(const edm::ParameterSet&, edm::ConsumesCollector && ic);
   ~PixelSimHitsTest();
   virtual void beginJob();
   virtual void analyze(const edm::Event&, const edm::EventSetup&);
@@ -90,6 +93,9 @@ private:
   edm::EDGetTokenT<PSimHitContainer> tPixelSimHits;
   int numEvents;
   double numSimHits, numSimHitsGood; 
+  edm::InputTag TECsimhitsXFTag;
+
+  edm::EDGetTokenT<CrossingFrame<PSimHit> > PixelsimhitsXFToken_;
 
   TH1F  *heloss1,*heloss2, *heloss3,*hdetunit,*hpabs,*hpid,*htof,*htid;
   TH1F* hpixid,*hpixsubid,*hlayerid,*hladder1id,*hladder2id,*hladder3id,
@@ -120,15 +126,19 @@ private:
 
 };
 //
-PixelSimHitsTest::PixelSimHitsTest(const edm::ParameterSet& iConfig) :
-  conf_(iConfig) {
-
+PixelSimHitsTest::PixelSimHitsTest(const edm::ParameterSet& iConfig, edm::ConsumesCollector && iC):
+  conf_(iConfig)
+  {
+  TECsimhitsXFTag=iConfig.getParameter<edm::InputTag>("TECsimhitsXFTag");
+  TECsimhitsXFToken_=iC.consumes<CrossingFrame<PSimHit> >(TECsimhitsXFTag);
+  
   std::string src_, list_;
   src_  =  iConfig.getParameter<std::string>( "src" );
   list_ =  iConfig.getParameter<std::string>( "list" );
 
   edm::InputTag tag(src_,list_);   // for the ByToken
   tPixelSimHits = consumes <PSimHitContainer> (tag);
+
 
   mode_ = iConfig.getUntrackedParameter<std::string>( "mode","bpix"); // select bpix or fpix
   PRINT = iConfig.getUntrackedParameter<bool>( "Verbosity",false); // printout
@@ -275,7 +285,7 @@ void PixelSimHitsTest::beginJob() {
 
 // ------------ method called to produce the data  ------------
 void PixelSimHitsTest::analyze(const edm::Event& iEvent, 
-			       const edm::EventSetup& iSetup) {
+			       const edm::EventSetup& iSetup ) {
   const bool DEBUG = false;
   //string mode = "bpix";
 
@@ -291,6 +301,22 @@ void PixelSimHitsTest::analyze(const edm::Event& iEvent,
   edm::ESHandle<TrackerTopology> tTopo;
   iSetup.get<TrackerTopologyRcd>().get(tTopo);
 
+  edm::Handle<CrossingFrame<PSimHit> > cf;
+  std::cout<<"getting CrossingFrame<PSimHit> collection - "<<TECsimhitsXFTag<<std::endl;
+  iEvent.getByLabel(TECsimhitsXFTag, cf);
+  
+     std::unique_ptr<MixCollection<PSimHit> > 
+      TECsimhits( new MixCollection<PSimHit>(cf.product()) );
+    std::cout<<"... size = "<<TECsimhits->size()<<std::endl;
+    for(MixCollection<PSimHit>::MixItr hitItr = TECsimhits->begin();
+	hitItr != TECsimhits->end(); ++hitItr)
+      {
+	     int bcrossing = (*hitItr).eventId().bunchCrossing();
+             std::cout<<"bunch "<< bcrossing <<std::endl;
+
+      }
+
+ 
   // Get input data
   int totalNumOfSimHits = 0;
   int totalNumOfSimHits1 = 0;
@@ -321,6 +347,8 @@ void PixelSimHitsTest::analyze(const edm::Event& iEvent,
    //iEvent.getByLabel( src_ ,"TrackerHitsPixelEndcapLowTof",PixelHitsLowTof);
    //iEvent.getByLabel( src_ ,"TrackerHitsPixelEndcapHighTof",PixelHitsHighTof);
    //}
+
+
 
    if(DEBUG) cout<<"Loop over SimHits LowTof"<<endl;
    //for(vector<PSimHit>::const_iterator isim = PixelHitsLowTof->begin();
@@ -460,6 +488,8 @@ void PixelSimHitsTest::analyze(const edm::Event& iEvent,
      float x2 = (*isim).exitPoint().x();
      float y2 = (*isim).exitPoint().y();
      float z2 = (*isim).exitPoint().z();
+     int bcrossing = (*isim).eventId().bunchCrossing();
+     std::cout<<"bunch "<<bcrossing<<std::endl;
 
      float dz = abs(z-z2);
      bool moduleDirectionUp = ( z < z2 ); // for positive direction z2>z

@@ -60,7 +60,7 @@ void OuterTrackerMonitorTTCluster::analyze(const edm::Event& iEvent, const edm::
 {
   /// Track Trigger Clusters
   edm::Handle< edmNew::DetSetVector< TTCluster< Ref_Phase2TrackerDigi_ > > > Phase2TrackerDigiTTClusterHandle;
-  iEvent.getByToken( tagTTClustersToken_, Phase2TrackerDigiTTClusterHandle );
+ iEvent.getByToken( tagTTClustersToken_, Phase2TrackerDigiTTClusterHandle );
   
   /// Geometry
   edm::ESHandle<TrackerTopology> tTopoHandle;
@@ -77,6 +77,9 @@ void OuterTrackerMonitorTTCluster::analyze(const edm::Event& iEvent, const edm::
   /// Loop over the input Clusters
   typename edmNew::DetSetVector< TTCluster< Ref_Phase2TrackerDigi_ > >::const_iterator inputIter;
   typename edmNew::DetSet< TTCluster< Ref_Phase2TrackerDigi_ > >::const_iterator contentIter;
+  
+  if ( !Phase2TrackerDigiTTClusterHandle.isValid() )  return;
+  
   for ( inputIter = Phase2TrackerDigiTTClusterHandle->begin();
         inputIter != Phase2TrackerDigiTTClusterHandle->end();
         ++inputIter )

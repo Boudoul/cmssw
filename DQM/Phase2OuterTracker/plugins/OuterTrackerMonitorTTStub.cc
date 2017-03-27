@@ -70,7 +70,6 @@ OuterTrackerMonitorTTStub::analyze(const edm::Event& iEvent, const edm::EventSet
   /// Track Trigger Stubs
   edm::Handle< edmNew::DetSetVector< TTStub< Ref_Phase2TrackerDigi_ > > > Phase2TrackerDigiTTStubHandle;
   iEvent.getByToken( tagTTStubsToken_, Phase2TrackerDigiTTStubHandle );
-  
   /// Geometry
   edm::ESHandle<TrackerTopology> tTopoHandle;
   const TrackerTopology* tTopo;
@@ -86,7 +85,10 @@ OuterTrackerMonitorTTStub::analyze(const edm::Event& iEvent, const edm::EventSet
   /// Loop over input Stubs
   typename edmNew::DetSetVector< TTStub< Ref_Phase2TrackerDigi_ > >::const_iterator inputIter;
   typename edmNew::DetSet< TTStub< Ref_Phase2TrackerDigi_ > >::const_iterator contentIter;
-  for ( inputIter = Phase2TrackerDigiTTStubHandle->begin();
+
+   if ( !Phase2TrackerDigiTTStubHandle.isValid() )  return;
+
+     for ( inputIter = Phase2TrackerDigiTTStubHandle->begin();
         inputIter != Phase2TrackerDigiTTStubHandle->end();
         ++inputIter )
   {

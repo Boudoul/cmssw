@@ -1727,7 +1727,7 @@ defaultDataSets['2023D13']=''
 defaultDataSets['2023D14']=''
 defaultDataSets['2023D15']=''
 defaultDataSets['2023D16']=''
-defaultDataSets['2023D17']=''
+defaultDataSets['2023D17']='CMSSW_9_1_1-91X_upgrade2023_realistic_v1_D17-v'
 
 keys=defaultDataSets.keys()
 for key in keys:
@@ -1754,7 +1754,7 @@ for ds in defaultDataSets:
     if '2017' in name or '2018' in name:
     	PUDataSets[ds]={'-n':10,'--pileup':'AVE_35_BX_25ns','--pileup_input':'das:/RelValMinBias_13/%s/GEN-SIM'%(name,)}
     else:
-    	PUDataSets[ds]={'-n':10,'--pileup':'AVE_35_BX_25ns','--pileup_input':'das:/RelValMinBias_14TeV/%s/GEN-SIM'%(name,)}
+    	PUDataSets[ds]={'-n':10,'--pileup':'AVE_200_BX_25ns','--pileup_input':'das:/RelValMinBias_14TeV/%s/GEN-SIM'%(name,)}
     
     #PUDataSets[ds]={'-n':10,'--pileup':'AVE_50_BX_25ns','--pileup_input':'das:/RelValMinBias_13/%s/GEN-SIM'%(name,)}
     #PUDataSets[ds]={'-n':10,'--pileup':'AVE_70_BX_25ns','--pileup_input':'das:/RelValMinBias_13/%s/GEN-SIM'%(name,)}

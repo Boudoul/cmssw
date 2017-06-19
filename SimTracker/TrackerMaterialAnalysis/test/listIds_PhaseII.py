@@ -7,7 +7,7 @@ process = cms.Process("MaterialAnalyser")
 readGeometryFromDB = False
 
 if not readGeometryFromDB:
-  process.load('Configuration.Geometry.GeometryExtended2023D4Reco_cff')
+  process.load('Configuration.Geometry.GeometryExtended2023D17Reco_cff')
 else:
 # GlobalTag and geometry via GT
   process.load('Configuration.Geometry.GeometrySimDB_cff')

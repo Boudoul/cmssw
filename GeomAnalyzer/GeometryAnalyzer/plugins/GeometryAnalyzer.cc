@@ -200,9 +200,6 @@ for( DetIdContainer::const_iterator id = allIds.begin(), detUnitIdEnd = allIds.e
   }//loop detids 
   
    
-/*TrackingGeometry::DetContainer tob = theTrackerGeometry->detsTOB();
-std::cout << "There are " << tob.size() << " detector elements in the TOB." << std::endl;*/
-
 
 #ifdef THIS_IS_AN_EVENT_EXAMPLE
    Handle<ExampleData> pIn;

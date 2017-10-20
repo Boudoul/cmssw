@@ -604,7 +604,6 @@ void SiStripMonitorCluster::analyze(const edm::Event& iEvent, const edm::EventSe
 
   int NPixClusters=0, NStripClusters=0, MultiplicityRegion=0;
   bool isPixValid=false;
-
   edm::ESHandle<SiStripNoises> noiseHandle;
   iSetup.get<SiStripNoisesRcd>().get(noiseHandle);
 
@@ -628,14 +627,18 @@ void SiStripMonitorCluster::analyze(const edm::Event& iEvent, const edm::EventSe
 
   const edmNew::DetSetVector<SiStripCluster> * StrC= cluster_detsetvektor.product();
   NStripClusters= StrC->data().size();
-
+// cout << "No. of  strip clusters = " <<NStripClusters<<endl;
   if (cluster_detsetvektor_pix.isValid()){
     const edmNew::DetSetVector<SiPixelCluster> * PixC= cluster_detsetvektor_pix.product();
     NPixClusters= PixC->data().size();
-    isPixValid=true;
-    MultiplicityRegion=FindRegion(NStripClusters,NPixClusters);
+// cout << "No. of  pix clusters = " <<NPixClusters<<endl;
 
-    if ( passBPTXfilter_ and passPixelDCSfilter_ and passStripDCSfilter_ ) {
+    isPixValid=true;
+   MultiplicityRegion=FindRegion(NStripClusters,NPixClusters);
+  //  cout <<"BPT = " << passBPTXfilter_ <<"Pixel = "<<passPixelDCSfilter_ <<"Strip ="<<passStripDCSfilter_ <<endl;
+
+    if ( passBPTXfilter_ and passPixelDCSfilter_ and passStripDCSfilter_ )
+ {
       if (globalswitchcstripvscpix) GlobalCStripVsCpix->Fill(NStripClusters,NPixClusters); 
       if (globalswitchmaindiagonalposition && NStripClusters > 0) GlobalMainDiagonalPosition->Fill(atan(NPixClusters/(k0*NStripClusters)));
 

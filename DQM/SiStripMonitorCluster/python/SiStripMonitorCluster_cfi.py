@@ -1,5 +1,4 @@
 import FWCore.ParameterSet.Config as cms
-
 # SiStripMonitorCluster
 SiStripMonitorCluster = cms.EDAnalyzer("SiStripMonitorCluster",
     ClusterProducerStrip = cms.InputTag('siStripClusters'),
@@ -19,6 +18,7 @@ SiStripMonitorCluster = cms.EDAnalyzer("SiStripMonitorCluster",
     ClusterChTkHistoMap_On = cms.bool(True),
                                      
     TopFolderName = cms.string('SiStrip'),
+   
 
     BPTXfilter     = cms.PSet(),
     PixelDCSfilter = cms.PSet(),
@@ -226,12 +226,12 @@ SiStripMonitorCluster = cms.EDAnalyzer("SiStripMonitorCluster",
         ),
 
     TH2CStripVsCpixel = cms.PSet(
-        Nbinsx = cms.int32(150),
-        xmin   = cms.double(-0.5),
-        xmax   = cms.double(74999.5),
-        Nbinsy = cms.int32(50),
-        ymin   = cms.double(-0.5),
-        ymax   = cms.double(14999.5),
+        Nbinsx = cms.int32(50),
+        xmin   = cms.double(0),
+        xmax   = cms.double(250),
+        Nbinsy = cms.int32(14),
+        ymin   = cms.double(0),
+        ymax   = cms.double(70),
         globalswitchon = cms.bool(True)
         ),
                                        
@@ -252,15 +252,15 @@ SiStripMonitorCluster = cms.EDAnalyzer("SiStripMonitorCluster",
 
     TH1MainDiagonalPosition= cms.PSet(
         Nbinsx          = cms.int32(100),
-        xmin           = cms.double(0.),
-        xmax           = cms.double(2.),
+        xmin           = cms.double(0.6),
+        xmax           = cms.double(1.6),
         globalswitchon = cms.bool(False)
         ),                            
 
     TProfMainDiagonalPosition= cms.PSet(
         Nbinsx = cms.int32(3565),
-        xmin = cms.double(0),
-        xmax = cms.double(3564),
+        xmin = cms.double(0.6),
+        xmax = cms.double(1.6),
         Nbinsy = cms.int32(100),
         ymin = cms.double(0.),
         ymax = cms.double(2.),
@@ -284,9 +284,9 @@ SiStripMonitorCluster = cms.EDAnalyzer("SiStripMonitorCluster",
         ),
                                        
     TH1NClusStrip = cms.PSet(
-        Nbinsx = cms.int32(500),
-        xmax = cms.double(99999.5),                      
-        xmin = cms.double(-0.5)
+        Nbinsx = cms.int32(24),
+        xmax = cms.double(120),                      
+        xmin = cms.double(0)
         ),
 
 #****************************************

@@ -15,7 +15,6 @@ namespace Phase2Tracker {
   class Phase2TrackerCommissioningDigiProducer : public edm::EDProducer
   {
   public:
-    /// constructor
     Phase2TrackerCommissioningDigiProducer( const edm::ParameterSet& pset );
     /// default constructor
     ~Phase2TrackerCommissioningDigiProducer() override;

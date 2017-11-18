@@ -23,8 +23,8 @@ XMLIdealGeometryESSource = cms.ESSource("XMLIdealGeometryESSource",
         'Geometry/CMSCommonData/data/telescope.xml',
         
          # Configurable parameters
-        'Geometry/CMSCommonData/data/Phase2BeamTestConstants.xml'
-      
+        'Geometry/CMSCommonData/data/Phase2BeamTestConstants.xml',
+        'Geometry/TrackerSimData/data/PhaseII/TiltedTracker/trackersens.xml' 
     ),
     rootNodeName = cms.string('cms:OCMS')
 )

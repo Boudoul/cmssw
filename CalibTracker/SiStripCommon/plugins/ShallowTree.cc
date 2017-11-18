@@ -22,6 +22,7 @@ ShallowTree::ShallowTree(const edm::ParameterSet& iConfig) {
   leafmap["ulint"]     = U_LONG;     leafmap["ulongs"]    = U_LONG_V;
   leafmap["char"]      = CHAR;       leafmap["chars"]     = CHAR_V;
   leafmap["uchar"]     = U_CHAR;     leafmap["uchars"]    = U_CHAR_V;
+  leafmap["vvf"]    = FLOAT_V_V;     leafmap["vvc"]    = CHAR_V_V;
 
 
   edm::Service<edm::ConstProductRegistry> reg;
@@ -70,6 +71,8 @@ ShallowTree::ShallowTree(const edm::ParameterSet& iConfig) {
       case CHAR_V   :  connectors_.push_back( new TypedBranchConnector<std::vector          <char> >(selection,   "", tree_) ); eat<std::vector          <char> >(selection); break;
       case U_CHAR   :  connectors_.push_back( new TypedBranchConnector             <unsigned char>  (selection, "/b", tree_) ); eat             <unsigned char>  (selection); break;
       case U_CHAR_V :  connectors_.push_back( new TypedBranchConnector<std::vector <unsigned char> >(selection,   "", tree_) ); eat<std::vector <unsigned char> >(selection); break;
+      case CHAR_V_V :  connectors_.push_back( new TypedBranchConnector<std::vector <std::vector<char> > >(selection,   "", tree_) ); eat<std::vector <std::vector <char> > >(selection); break;
+      case FLOAT_V_V  :  connectors_.push_back( new TypedBranchConnector<std::vector <std::vector<float> > >(selection,"", tree_) ); eat<std::vector <std::vector <float> > >(selection); break;
       default: 
 			{
 				std::string leafstring = "";

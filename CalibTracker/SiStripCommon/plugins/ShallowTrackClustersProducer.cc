@@ -26,15 +26,15 @@
 
 ShallowTrackClustersProducer::ShallowTrackClustersProducer(const edm::ParameterSet& iConfig)
   :  tracks_token_(consumes<edm::View<reco::Track> >(iConfig.getParameter<edm::InputTag>("Tracks"))),
-		 association_token_(consumes<TrajTrackAssociationCollection>(iConfig.getParameter<edm::InputTag>("Tracks"))),
+     association_token_(consumes<TrajTrackAssociationCollection>(iConfig.getParameter<edm::InputTag>("Tracks"))),
      clusters_token_( consumes< edmNew::DetSetVector<SiStripCluster> >( iConfig.getParameter<edm::InputTag>("Clusters") ) ),
      Suffix       ( iConfig.getParameter<std::string>("Suffix")    ),
      Prefix       ( iConfig.getParameter<std::string>("Prefix") )
 {
   produces<std::vector<int> > ( Prefix + "clusterIdx"      + Suffix ); //link: on trk cluster --> general cluster info 
   produces<std::vector<int> > ( Prefix + "onTrkClusterIdx" + Suffix ); //link: general cluster info --> on track cluster
-	produces <std::vector<int> > ( Prefix + "onTrkClustersBegin" + Suffix ); //link: track --> onTrkInfo (range)
-	produces <std::vector<int> > ( Prefix + "onTrkClustersEnd" + Suffix ); //link: track --> onTrkInfo (range)
+  produces <std::vector<int> > ( Prefix + "onTrkClustersBegin" + Suffix ); //link: track --> onTrkInfo (range)
+  produces <std::vector<int> > ( Prefix + "onTrkClustersEnd" + Suffix ); //link: track --> onTrkInfo (range)
   produces <std::vector<int> > ( Prefix + "trackindex"  + Suffix ); //link: on trk cluster --> track index
 
   produces <std::vector<unsigned int> > ( Prefix + "trackmulti"  + Suffix );

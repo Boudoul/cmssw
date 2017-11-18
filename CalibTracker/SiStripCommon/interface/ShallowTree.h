@@ -71,7 +71,8 @@ public:
 		 INT,     INT_V,             U_INT,   U_INT_V,
 		 FLOAT,   FLOAT_V,           DOUBLE,  DOUBLE_V,
 		 LONG,    LONG_V,	     U_LONG,  U_LONG_V, 
-		 CHAR,    CHAR_V,            U_CHAR,  U_CHAR_V};
+		 CHAR,    CHAR_V,            U_CHAR,  U_CHAR_V,
+	         FLOAT_V_V,  CHAR_V_V};
 };
 
 #endif

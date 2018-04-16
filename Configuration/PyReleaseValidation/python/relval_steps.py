@@ -383,6 +383,7 @@ steps['RunSingleMu2015HLHS']={'INPUT':InputInfo(dataSet='/SingleMuon/Run2015D-v1
 ##Run 272133 @ 3.8T 2016B###
 steps['RunCosmics2015C']={'INPUT':InputInfo(dataSet='/Cosmics/Run2015C-v1/RAW',label='cos2015C',run=[256259],events=100000,location='STD')}
 steps['RunCosmics2016B']={'INPUT':InputInfo(dataSet='/Cosmics/Run2016B-v1/RAW',label='cos2016B',run=[272133],events=100000,location='STD')}
+steps['RunCosmics2017']={'INPUT':InputInfo(dataSet='/Cosmics/Run2017F-v1/RAW',label='cos2017',run=[306315],events=100000,location='STD')}
 
 def gen(fragment,howMuch):
     global step1Defaults
@@ -1559,6 +1560,7 @@ steps['RECOCOSD']=merge([{'--scenario':'cosmics',
                           },dataReco])
 
 steps['RECOCOSDRUN2']=merge([{'--conditions':'auto:run2_data','--era':'Run2_2016'},steps['RECOCOSD']])
+steps['RECOCOSDRUN2017']=merge([{'--conditions':'auto:run2_data','--era':'Run2_2017'},steps['RECOCOSD']])
 
 # step1 gensim for HI mixing
 step1Up2018HiMixDefaults = merge ([{'--beamspot':'MatchHI', '--pileup':'HiMixGEN'},hiDefaults2018,PUHI,step1Up2017Defaults])
@@ -1846,6 +1848,7 @@ steps['ALCACOSD']={'--conditions':'auto:run1_data',
                    }
 
 steps['ALCACOSDRUN2']=merge([{'--conditions':'auto:run2_data','--era':'Run2_2016','-s':'ALCA:TkAlCosmics0T+MuAlGlobalCosmics+HcalCalHOCosmics+DtCalibCosmics+DQM'},steps['ALCACOSD']])
+steps['ALCACOSDRUN2017']=merge([{'--conditions':'auto:run2_data','--era':'Run2_2017','-s':'ALCA:TkAlCosmics0T+MuAlGlobalCosmics+HcalCalHOCosmics+DtCalibCosmics+DQM'},steps['ALCACOSD']])
 
 steps['ALCAPROMPT']={'-s':'ALCA:PromptCalibProd',
                      '--filein':'file:TkAlMinBias.root',
@@ -2032,6 +2035,7 @@ steps['HARVESTDC']={'-s':'HARVESTING:dqmHarvesting',
                    '--scenario':'cosmics'}
 
 steps['HARVESTDCRUN2']=merge([{'--conditions':'auto:run2_data','--era':'Run2_2016'},steps['HARVESTDC']])
+steps['HARVESTDCRUN2017']=merge([{'--conditions':'auto:run2_data','--era':'Run2_2017'},steps['HARVESTDC']])
 
 steps['HARVESTDR2_REMINIAOD_data2016']=merge([{'--data':'', '-s':'HARVESTING:@miniAODDQM','--era':'Run2_2016,run2_miniAOD_80XLegacy'},steps['HARVESTDR2']])
 steps['HARVESTDR2_REMINIAOD_data2016_HIPM']=merge([{'--era':'Run2_2016_HIPM,run2_miniAOD_80XLegacy'},steps['HARVESTDR2_REMINIAOD_data2016']])

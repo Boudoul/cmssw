@@ -170,6 +170,9 @@ workflows[136.730] = ['',['RunSingleMu2016B','HLTDR2_2016','RECODR2_2016reHLT_sk
 workflows[136.731] = ['',['RunSinglePh2016B','HLTDR2_2016','RECODR2_2016reHLT_skimSinglePh_HIPM','HARVESTDR2']]
 workflows[136.732] = ['',['RunZeroBias2016B','HLTDR2_2016','RECODR2_2016reHLT_HIPM','HARVESTDR2']]
 workflows[136.733] = ['',['RunCosmics2016B','RECOCOSDRUN2','ALCACOSDRUN2','HARVESTDCRUN2']]
+##!!!!!!!!
+workflows[136.999] = ['',['RunCosmics2017','RECOCOSDRUN2017','ALCACOSDRUN2017','HARVESTDCRUN2017']]
+
 workflows[136.734] = ['',['RunMuOnia2016B','HLTDR2_2016','RECODR2_2016reHLT_skimMuOnia_HIPM','HARVESTDR2']]
 workflows[136.735] = ['',['RunNoBPTX2016B','HLTDR2_2016','RECODR2reHLTAlCaTkCosmics_HIPM','HARVESTDR2']]
 workflows[136.7321] = ['',['RunZeroBias2016BnewL1repack','HLTDR2newL1repack_2016','RECODR2newL1repack_2016reHLT_HIPM','HARVESTDR2']]

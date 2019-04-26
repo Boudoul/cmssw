@@ -310,6 +310,7 @@ upgradeProperties[2017]['2021PU']['ScenToRun'] = ['GenSimFull','DigiFullPU','Rec
 upgradeProperties[2017]['2021DesignPU'] = deepcopy(upgradeProperties[2017]['2021Design'])
 upgradeProperties[2017]['2021DesignPU']['ScenToRun'] = ['GenSimFull','DigiFullPU','RecoFullPU','HARVESTFullPU']
 
+
 upgradeProperties[2023] = {
     '2023D17' : {
         'Geom' : 'Extended2023D17',

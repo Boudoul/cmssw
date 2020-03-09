@@ -1851,6 +1851,8 @@ steps['RECODR2_2016']=merge([{'--scenario':'pp','--conditions':'auto:run2_data_r
 steps['RECODR2_2017']=merge([{'--scenario':'pp','--conditions':'auto:run2_data_relval','--era':'Run2_2017','--customise':'Configuration/DataProcessing/RecoTLR.customisePostEra_Run2_2017'},dataReco])
 steps['RECODR2_2018']=merge([{'--scenario':'pp','--conditions':'auto:run2_data_relval','--era':'Run2_2018','--customise':'Configuration/DataProcessing/RecoTLR.customisePostEra_Run2_2018'},dataReco])
 
+steps['RECORUN3']=merge([{'--scenario':'pp','--conditions':'auto:run3_data_promptlike','--era':'Run3'},dataReco]) #Test of pp prompt reco on Cosmic Run 
+
 steps['RECODR2AlCaEle']=merge([{'--scenario':'pp','--conditions':'auto:run2_data_relval','--customise':'Configuration/DataProcessing/RecoTLR.customisePromptRun2',},dataRecoAlCaCalo])
 
 steps['RECODSplit']=steps['RECOD'] # finer job splitting
@@ -2451,6 +2453,7 @@ steps['ALCACOSD']={'--conditions':'auto:run1_data',
 steps['ALCACOSDRUN2']=merge([{'--conditions':'auto:run2_data','--era':'Run2_2016','-s':'ALCA:SiPixelCalCosmics+TkAlCosmics0T+SiStripCalCosmics+MuAlGlobalCosmics+HcalCalHOCosmics+DtCalibCosmics+DQM'},steps['ALCACOSD']])
 
 steps['ALCACOSDRUN3']=merge([{'--conditions':'auto:run3_data_promptlike','--era':'Run3','-s':'ALCA:SiPixelCalCosmics+TkAlCosmics0T+SiStripCalCosmics+MuAlGlobalCosmics+HcalCalHOCosmics+DtCalibCosmics+DQM'},steps['ALCACOSD']])
+steps['ALCARUN3']=merge([{'--conditions':'auto:run3_data_promptlike','--era':'Run3','-s':'ALCA:SiPixelCalSingleMuon+SiStripCalZeroBias+SiStripCalMinBias+SiStripCalSmallBiasScan+TkAlMinBias+EcalESAlign,DQM:@standardDQMFakeHLT+@miniAODDQM+@L1TMuon'},steps['ALCACOSD']])
 
 steps['ALCAPROMPT']={'-s':'ALCA:PromptCalibProd',
                      '--filein':'file:TkAlMinBias.root',
@@ -2664,6 +2667,8 @@ steps['HARVESTDC']={'-s':'HARVESTING:dqmHarvestingFakeHLT',
                    '--scenario':'cosmics'}
 
 steps['HARVESTDCRUN2']=merge([{'--conditions':'auto:run2_data','--era':'Run2_2016'},steps['HARVESTDC']])
+
+steps['HARVESTRUN3']=merge([{'--conditions':'auto:run3_data_promptlike','--era':'Run3'},steps['HARVESTD']])
 
 steps['HARVESTDCRUN3']=merge([{'--conditions':'auto:run3_data_promptlike','--era':'Run3'},steps['HARVESTDC']])
 

@@ -411,7 +411,8 @@ workflows[136.888502] = ['',['RunJetHT2018D','HLTDR2_2018','RECODR2_2018reHLT_Pa
 workflows[137.8] = ['',['RunEGamma2018C','HLTDR2_2018','RECODR2_2018reHLT_skimEGamma_Offline_L1TEgDQM',
                         'RunEGamma2018D','HLTDR2_2018','RECODR2_2018reHLT_skimEGamma_Prompt_L1TEgDQM','HARVEST2018_L1TEgDQM_MULTIRUN']]
 ### LS2 - MWGR ###
-workflows[138.1] = ['',['RunCosmics2020','RECOCOSDRUN3','ALCACOSDRUN3','HARVESTDCRUN3']]
+workflows[138.1] = ['',['RunCosmics2020','RECOCOSDRUN3','ALCACOSDRUN3','HARVESTDCRUN3']] #std cosmic reco
+workflows[138.2] = ['',['RunCosmics2020','RECORUN3','ALCARUN3','HARVESTRUN3']] #std Run 3 pp reco to test it on (cosmic for the moment) data
 
 #### Test of lumi section boundary crossing with run2 2018D ####
 workflows[136.8861] = ['',['RunEGamma2018Dml1','HLTDR2_2018ml','RECODR2_2018reHLT_skimEGamma_Prompt_L1TEgDQMml','HARVEST2018_L1TEgDQM_Prompt']]
